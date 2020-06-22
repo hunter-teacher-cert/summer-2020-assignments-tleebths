@@ -1,0 +1,16 @@
+4.11 Ex 1
+1. ping() prints a period. baffle() prints "wug.". zoop() prints
+wug.
+You wugga wug.
+The program (main) will print:
+No, I wug.
+You wugga wug.
+I wug.
+
+2. stack diagram
+main()   ||
+zoop()   ||
+baffle() ||
+ping()   ||
+
+3. Infinite loop. Calling either method would keep printing line after line of "wug."

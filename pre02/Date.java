@@ -3,12 +3,12 @@ import java.util.*;
 
 public class Date {
 	public static void main(String[] args) {
-		String day;
-		int date, month, year;
+		String day, month;
+		int date, year;
 		
 		day = "Monday";
 		date = 22;
-		month = 6;
+		month = "June";
 		year = 2020;
 /*
 		System.out.println(day);
@@ -16,6 +16,9 @@ public class Date {
 		System.out.println(month);
 		System.out.println(year);
 */		
-		System.out.println("Today is " + day + ", " + month + "/" + date + "/" + year + ".");
+		System.out.println("American format:");
+		System.out.println("Today is " + day + ", " + month + " " + date + ", " + year);
+		System.out.println("European format:");
+		System.out.println("Today is " + day + " " + date + " " + month + " " + year);
 	}
 }

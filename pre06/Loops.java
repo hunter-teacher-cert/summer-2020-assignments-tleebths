@@ -40,12 +40,12 @@ public class Loops {
 	}
 */	
 	// #5 v2 - n should be non-negative
-	public static double myexp(int x, int n) {
+	public static double myexp(double x, int n) {
 		double result = 1.0, nthTerm = 1.0;
 		
 		// nth term is (n-1)th term * x / n
 		for(int i=1; i<=n; i++) {
-			nthTerm *= 1.0 * x/i;  //avoid int division
+			nthTerm *= x/i;  //avoid int division
 //			System.out.printf("x = %d  n = %d  nthTerm = %f", x, n, nthTerm);
 			result += nthTerm;
 //			System.out.println(" result = " + result);
@@ -53,19 +53,34 @@ public class Loops {
 		
 		return result;
 	}
+
+	public static void check(double x) {
+		System.out.printf("%f\t%f\t%f", x, myexp(x,10), Math.exp(x));
+		System.out.println();
+	}
 	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		
 		// #5
-		System.out.print("Estimate e^");
-		int x = in.nextInt();
-		System.out.print("for how many terms? ");
-		int n = in.nextInt();
+//		int n;  // used for series
 		
-		System.out.printf("e^%d ~= %f", x, myexp(x,n));
-		System.out.println();
+//		System.out.print("Estimate e^");
+//		int x = in.nextInt();
+//		System.out.print("for how many terms? ");
+//		n = in.nextInt();
 		
+//		System.out.printf("e^%d ~= %f", x, myexp(x,n));
+//		System.out.println();
+/*		check(0.1);   // agrees on all digits
+		check(1.0);   // agrees on all digits
+		check(10.0);  // agrees on no digits
+		check(100.0); // agrees on no digits
+*/
+		for(double i=0.1; i<1000; i *= 10) {
+			check(i);
+			check(-1 * i);
+		}
 		
 /*		// #4
 		System.out.print("factorial for? ");

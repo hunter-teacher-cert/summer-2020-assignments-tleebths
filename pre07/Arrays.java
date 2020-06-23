@@ -64,16 +64,31 @@ public class Hello {
 		return maxIndex;
 	}
 	
-	// #5
-	public static boolean[] sieve(int[] a) {
+	// #5 - implementing the Sieve of Eratosthenes
+	public static boolean[] sieve(int n) {
+		boolean[] result = new boolean[n];  // Java initializes to false
+		// set everything to true, then use sieve and turn composite #s to false
+		for (int i=2; i<n; i++) {  // 0-1 not prime, so left alone
+			result[i] = true;
+		}
 		
+		for (int i=2; i < n; i++) {
+			
+		}
+		
+		return result;
 	}
 	
 	public static void main(String[] args) {
 		//#5
-		int[] randArray = randomArray(10);
-		System.out.println( Arrays.toString(randArray) );
-		System.out.println( Arrays.toString(sieve(randArray)) );	
+		int size = 10;  // or however many numbers to check for prime
+		boolean[] sieved = sieve(size);
+		
+		for (int i=0; i < size; i++) {  
+			System.out.printf("%d: ", i);
+			System.out.println( sieved[i] );	
+		}
+		
 		
 /*		// #4
 		int[] randArray = randomArray(8);

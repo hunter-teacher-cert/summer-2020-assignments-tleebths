@@ -64,7 +64,19 @@ public class Hello {
 		return maxIndex;
 	}
 	
-	// #5 - implementing the Sieve of Eratosthenes
+	// #5
+	// helper function: given boolean array a and current index i, find the index of the next prime
+	// Does this by searching for next "true" flag
+	public static int findNextPrimeIndex(boolean[] a, int i) {
+		for (i++; i<a.length; i++) {  // search after current index
+			if (a[i]) {  // looking for true
+				return i;
+			}
+		}
+		return i; // No more found
+	}
+	
+	// implementing the Sieve of Eratosthenes
 	public static boolean[] sieve(int n) {
 		boolean[] result = new boolean[n];  // Java initializes to false
 		// set everything to true, then use sieve and turn composite #s to false
@@ -72,8 +84,10 @@ public class Hello {
 			result[i] = true;
 		}
 		
-		for (int i=2; i < n; i++) {
-			
+		for (int i=2; i < n; i = findNextPrimeIndex(result, i)) {
+			for (int j=i*2; j<n; j += i) {  // the sieve - the first in each series is a prime
+				result[j] = false;
+			}
 		}
 		
 		return result;
@@ -81,12 +95,12 @@ public class Hello {
 	
 	public static void main(String[] args) {
 		//#5
-		int size = 10;  // or however many numbers to check for prime
+		int size = 100;  // or however many numbers to check for prime
 		boolean[] sieved = sieve(size);
 		
 		for (int i=0; i < size; i++) {  
 			System.out.printf("%d: ", i);
-			System.out.println( sieved[i] );	
+			System.out.print( sieved[i] + "   ");	
 		}
 		
 		

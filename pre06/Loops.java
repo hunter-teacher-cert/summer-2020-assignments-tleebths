@@ -46,17 +46,20 @@ public class Loops {
 		// nth term is (n-1)th term * x / n
 		for(int i=1; i<=n; i++) {
 			nthTerm *= x/i;  //avoid int division
-//			System.out.printf("x = %d  n = %d  nthTerm = %f", x, n, nthTerm);
 			result += nthTerm;
-//			System.out.println(" result = " + result);
-		}
+			
+/*			if (x<0) {
+				System.out.printf("x = %f  n = %d  nthTerm = %f", x, n, nthTerm);
+				System.out.println(" result = " + result);
+			}
+*/		}
 		
 		return result;
 	}
 
 	public static void check(double x) {
-		System.out.printf("%f\t%f\t%f", x, myexp(x,10), Math.exp(x));
-		System.out.println();
+//		System.out.printf("%f\t%f\t%f", x, myexp(x,10), Math.exp(x)); System.out.println();
+		System.out.println(x + "\t" + myexp(x,17) + "\t" + Math.exp(x));
 	}
 	
 	public static void main(String[] args) {

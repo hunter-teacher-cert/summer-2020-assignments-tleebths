@@ -59,7 +59,7 @@ public class Hello {
 		// initialize
 		int numRounds = Integer.parseInt(args[0]);
 		
-		// 
+		// plays that many rounds
 		for (int i=0; i<numRounds; i++) {
 			if (round()) {	// true means win
 				System.out.println("WINS!");

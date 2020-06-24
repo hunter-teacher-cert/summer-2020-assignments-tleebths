@@ -1,4 +1,4 @@
-// 07 typo: primitave Assignments: TJ Ch 8 ex 1, 4, 5
+// Assignments: TJ Ch 8 ex 1, 4, 5
 import java.io.*;
 import java.util.*;
 import java.lang.Math;

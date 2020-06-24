@@ -30,7 +30,9 @@ public class Hello {
 	public static boolean round() {
 		// initialize
 		int NUM_DICE = 2, MAX_VALUE = 6;
+		
 		int rolled = shoot(NUM_DICE, MAX_VALUE);
+		System.out.print("New Round: rolling " + rolled + " ");
 		
 		if (rolled == 2 || rolled == 3 || rolled == 12) {  // Craps, loses
 			return false;
@@ -39,9 +41,11 @@ public class Hello {
 		}
 		
 		int point = rolled;
+		System.out.print("Point=" + point + ". Rolling: ");
 		
 		while (true) {
 			rolled = shoot(NUM_DICE, MAX_VALUE);
+			System.out.print(rolled + " ");
 			
 			if (rolled == point) {
 				return true;
@@ -57,7 +61,11 @@ public class Hello {
 		
 		// 
 		for (int i=0; i<numRounds; i++) {
-			System.out.println( round() );
+			if (round()) {	// true means win
+				System.out.println("WINS!");
+			} else {
+				System.out.println("LOSES!");
+			}
 		}
 	}
 }

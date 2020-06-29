@@ -73,7 +73,7 @@ public class Classwork200629v2 {
     	m = Integer.parseInt( mn[0] );
     	n = Integer.parseInt( mn[1] );
 		
-		System.out.print("A(" + m + "," + n + ") = " + ack(m,n));
+		System.out.println("A(" + m + "," + n + ") = " + ack(m,n));
 	}
 
     public static void main(String[] args) {

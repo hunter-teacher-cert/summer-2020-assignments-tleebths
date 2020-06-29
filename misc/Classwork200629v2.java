@@ -67,12 +67,23 @@ public class Classwork200629v2 {
 		System.out.println(fib(n));
 	}
 
+	public static void ackermann(String[] mn) {
+		int m, n;  // for Ackermann function
+
+    	m = Integer.parseInt( mn[0] );
+    	n = Integer.parseInt( mn[1] );
+		
+		System.out.print("A(" + m + "," + n + ") = " + ack(m,n));
+	}
+
     public static void main(String[] args) {
 		
 		if ( args[0].equals("fact") ) {
 			factorial(args[1]);
 		} else if ( args[0].equals("fib") ) {
 			fibonacci(args[1]);
+		} else if ( args[0].equals("ack") ) {
+			ackermann(new String[]{args[1], args[2]});
 		}
     	
 	}

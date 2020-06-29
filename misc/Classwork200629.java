@@ -29,9 +29,6 @@ public class Classwork200629 {
 		return fib(n-1) + fib(n-2);
 	}
 	
-	// 4: Similarities: each level is defined by a simplification to a lower level (argument closer to base case)
-	//    Differences: fib becomes exponentially more complicated (or more?)
-
     public static void main(String[] args) {
     	long n = Long.parseLong( args[0] );  // arg from command-line
 		

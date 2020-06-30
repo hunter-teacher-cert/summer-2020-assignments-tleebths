@@ -3,8 +3,8 @@ import java.util.*;
 public class Fib {
 
 	/* 
-	 * Returns: long
-	 * Given long n, calculates fibonacci(n) using recursion
+	 * Returns the fib sequence from 0 to i
+	 * Since arrays are passed by reference, we can change values within
 	 * Definitions: fib(0) = 0, fib(1) = 1
 	 */
 	public static int[] fibonacci(int[] sequence, int i) {
@@ -19,10 +19,9 @@ public class Fib {
 		}
 		
 		return sequence;
-
 	}
 	
-	public static int[] fib(int n) {
+	public static int fib(int n) {
 		// create the array to track each fib
 		// To find fib(1), we need fib(0) and fib(1)
 		int[] sequence = new int[n+1];

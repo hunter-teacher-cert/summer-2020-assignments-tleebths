@@ -19,7 +19,7 @@ public class Gridz2 {
 	public static void printArray(int[] ia) {
 		
 		for (int c=0; c < ia.length; c++) {
-			System.out.printf("%02d ", ia[c]);
+			System.out.printf("%d ", ia[c]);
 		}  // end for i
 			
 		System.out.println();

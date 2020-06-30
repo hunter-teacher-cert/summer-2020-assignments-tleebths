@@ -12,8 +12,8 @@ public class GridImage {
 //		rowPop(grid, 1, 255);
 //		colPop(grid, 5, 2);
 //		invert(grid);
-		// diagonal(grid, 8, 3, 0, 111);
-		diagonal(grid, 0, 5, 3, 222);
+		diagonal(grid, 8, 3, 0, 111);
+		// diagonal(grid, 0, 5, 3, 222);
 		
 		print2d(grid);
 		System.out.println();
@@ -26,6 +26,29 @@ public class GridImage {
 		2: down + left
 		3: down + right
 	 */
+	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
+		while (r < d2.length && c < d2[0].length && r >= 0 && c >= 0) {		
+			d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
+
+			if (direction == 0) {
+				r = r - 1;
+				c = c - 1;
+			} else if (direction == 1) {
+				r = r - 1;
+				c = c + 1;
+			} else if (direction == 2) {
+				r = r + 1;
+				c = c - 1;
+			} else {
+				r = r + 1;
+				c = c + 1;
+			}
+			
+		} // end while
+		
+	}	 
+	 
+/*	Efficient solution 
 	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
 		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0)
 			return;  // base cases: arrayIndexOutOfBounds
@@ -44,7 +67,7 @@ public class GridImage {
 		
 		diagonal(d2, r, c, direction, value);
 	}  //end diagonal
-
+*/
 	public static void print2d(int[][] d2) {
 
 		for (int r=0; r < d2.length; r++) {

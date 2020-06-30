@@ -13,7 +13,7 @@ public class GridImage {
 //		colPop(grid, 5, 2);
 //		invert(grid);
 		diagonal(grid, 8, 3, 0, 111);
-		// diagonal(grid, 0, 5, 3, 222);
+		diagonal(grid, 0, 5, 3, 222);
 		
 		print2d(grid);
 		System.out.println();

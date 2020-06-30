@@ -11,8 +11,8 @@ public class Recursion {
     	System.out.println(m + "! = " + fact(m));  // uses first argument
 		System.out.println("fib(" + m + ") = " + fib(m));
 		
-		if (args.length > 1) {
-			n = Integer.parseInt( args[1] );
+		if (args.length > 1) {  // want to make sure more than one arg was given
+			n = Integer.parseInt( args[1] );  // else this would throw an error
 			System.out.println("A(" + m + "," + n + ") = " + ack(m,n));
 		}
 
@@ -32,6 +32,7 @@ public class Recursion {
 		
     	int m = Integer.parseInt( sa[0] );  // first arg
 		// copyOfRange copies from index 1 up to but not incl. index sa.length
+		// I don't think each String is copied so no duplicate memory used
 		return m + recursiveSum(Arrays.copyOfRange(sa, 1, sa.length));
 	}
 

@@ -5,23 +5,45 @@ public class GridImage {
 
 	public static void main(String[] args) {
 
-		int rows = 20;  // initialize 20x20 array
-		int cols = 20;
+		int rows = 10;  // initialize 20x20 array
+		int cols = 10;
 		int[][] grid = new int[rows][cols];
 		
-		rowPop(grid, 1, 255);
-		colPop(grid, 5, 2);
-
-		print2d(grid);
-		System.out.println();
-
-		invert(grid);
+//		rowPop(grid, 1, 255);
+//		colPop(grid, 5, 2);
+//		invert(grid);
+		// diagonal(grid, 8, 3, 0, 111);
+		diagonal(grid, 0, 5, 3, 222);
 		
-		System.out.println("after");
 		print2d(grid);
 		System.out.println();
 
 	}
+
+	/*
+		0: up + left
+		1: up + right
+		2: down + left
+		3: down + right
+	 */
+	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
+		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0)
+			return;  // base cases: arrayIndexOutOfBounds
+		
+		d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
+		
+		if (direction < 2)  // up
+			r--;
+		else
+			r++;
+		
+		if (direction % 2 == 0)  // left
+			c--;
+		else
+			c++;
+		
+		diagonal(d2, r, c, direction, value);
+	}  //end diagonal
 
 	public static void print2d(int[][] d2) {
 
@@ -60,15 +82,6 @@ public class GridImage {
 		}  // end r
 	
 	}//end invert
-
-	/*
-		0: up + left
-		1: up + right
-		2: down + left
-		3: down + right
-	 */
-	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
-	}//end diagonal
 
 
 }	// end class

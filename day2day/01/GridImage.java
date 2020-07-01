@@ -26,7 +26,28 @@ public class GridImage {
 		2: down + left
 		3: down + right
 	 */
+	// Recursive solution 
 	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
+		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0)
+			return;  // base cases: arrayIndexOutOfBounds
+		
+		d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
+		
+		if (direction < 2)  // up
+			r--;
+		else
+			r++;
+		
+		if (direction % 2 == 0)  // left
+			c--;
+		else
+			c++;
+		
+		diagonal(d2, r, c, direction, value);
+	}  //end diagonal
+
+	// iterative solution
+/*	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
 		while (r < d2.length && c < d2[0].length && r >= 0 && c >= 0) {		
 			d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
 
@@ -46,28 +67,8 @@ public class GridImage {
 			
 		} // end while
 		
-	}	 
+	}*/	 
 	 
-/*	Efficient solution 
-	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
-		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0)
-			return;  // base cases: arrayIndexOutOfBounds
-		
-		d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
-		
-		if (direction < 2)  // up
-			r--;
-		else
-			r++;
-		
-		if (direction % 2 == 0)  // left
-			c--;
-		else
-			c++;
-		
-		diagonal(d2, r, c, direction, value);
-	}  //end diagonal
-*/
 	public static void print2d(int[][] d2) {
 
 		for (int r=0; r < d2.length; r++) {

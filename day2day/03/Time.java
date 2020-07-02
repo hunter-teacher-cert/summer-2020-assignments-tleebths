@@ -69,14 +69,16 @@ public class Time{
 		int min = t1.minute + t2.minute;
 		double sec = t1.second + t2.second;
 
-		// Div. gives carry, mod gives remainder
+		// Div. gives carry; mod gives remainder
+		// EX: 62 mins = 1 hr 2 mins, cuz 62/60=1, 62%60=2
 		hr += min / 60;
 		min += sec / 60.0;
+		// Must "save" carries first by doing mod last
 		sec %= 60.0;  // sec = sec % 60
 		min %= 60;
 		hr %= 24;
 
-		return new Time(hr, min, sec);
+		return new Time(hr, min, sec);  // skips new Time variable
 	}  // end addTime()
 
 	// pure method
@@ -85,7 +87,7 @@ public class Time{
 		int min = this.minute + t2.minute;
 		double sec = this.second + t2.second;
 
-		// normalize <60
+		// normalize
 		hr += min / 60;
 		min += sec / 60.0;
 		sec %= 60.0;  // sec = sec % 60
@@ -95,8 +97,7 @@ public class Time{
 		return new Time(hr, min, sec);
 	}  // end add()
 
-	// modifier
-	// Is this bad practice, to skip "this"
+	// modifier - is it  bad practice to omit "this"
 	public void increment(double seconds) {
 		second += seconds;
 

@@ -82,15 +82,15 @@ class Life{
 //		System.out.println("\n\n------------------\n\n");
 	}
 
-	//helper method to slow down animation 
+	//helper method to slow down animation
 	public static void delay(int n)
 	{
 		try {
 			Thread.sleep(n);
-		} 
+		}
 		catch(InterruptedException e) {}
 	}
-	
+
 	/*
 	set the cell (r,c) to value
 	*/
@@ -119,7 +119,7 @@ class Life{
 					counter += board[row][col]=='X'? 1: 0;  // ternary operator (if-then-else)
 			}
 		}
-		
+
 		counter -= board[r][c]=='X'? 1: 0;  // overcounted the cell we're examining
 		//System.out.printf("r=%d c=%d counter=%d", r, c, counter);
 		//System.out.println();
@@ -139,7 +139,7 @@ class Life{
 		//    if living and 2 3 neighbors then remain alive
 		//    if dead and 3 neighbors then become alive
 		return (board[r][c]=='X' && (alive==2 || alive==3)) || ((board[r][c]==' ') && alive==3) ? 'X': ' ';
-		
+
 	}
 	/*
 	scan the board to generate a NEW board with the
@@ -148,23 +148,23 @@ class Life{
 	public static char[][] generateNextBoard(char[][] board){
 		int rows = board.length, cols = board[0].length;
 		char newBoard[][] = new char[rows][cols];
-		
+
 		// fill the new board
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 				setCell(newBoard, r, c, getNextGenCell(board, r, c));
 			}
 		}
-		
+
 		return newBoard;
 	}
 
 	static void animateBoard(char[][] board) {
-		System.out.print("[0;0H\n");
+		System.out.print("\033[0;0H");
 		for (int row = 0; row < board.length ; row++) {
 			for (int col = 0; col < board[row].length; col++) {
 				System.out.print(board[row][col]);
-			}			
+			}
 			System.out.println();
 		}
 	    delay(500);
@@ -174,7 +174,7 @@ class Life{
 		char[][] board;
 		board = seed0();
 		//printBoard(board);
-		
+
 		for (int i=0; i>-1; i++) {
 			animateBoard(board);
 			board = generateNextBoard(board);

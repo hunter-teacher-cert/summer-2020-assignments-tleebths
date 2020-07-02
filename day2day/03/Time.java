@@ -63,10 +63,50 @@ public class Time{
 			&& this.second == that.second;
 	}
 
+	// Normalizes results: <24 hrs, <60 mins, <60 secs
 	public static Time addTime(Time t1, Time t2) {
-		return new Time(t1.hour + t2.hour,
-					t1.minute + t2.minute,
-					t1.second + t2.second);
-	}
+		int hr = t1.hour + t2.hour;
+		int min = t1.minute + t2.minute;
+		double sec = t1.second + t2.second;
+
+		// Div. gives carry, mod gives remainder
+		hr += min / 60;
+		min += sec / 60.0;
+		sec %= 60.0;  // sec = sec % 60
+		min %= 60;
+		hr %= 24;
+
+		return new Time(hr, min, sec);
+	}  // end addTime()
+
+	// pure method
+	public Time add(Time t2) {
+		int hr = this.hour + t2.hour;
+		int min = this.minute + t2.minute;
+		double sec = this.second + t2.second;
+
+		// normalize <60
+		hr += min / 60;
+		min += sec / 60.0;
+		sec %= 60.0;  // sec = sec % 60
+		min %= 60;
+		hr %= 24;
+
+		return new Time(hr, min, sec);
+	}  // end add()
+
+	// modifier
+	// Is this bad practice, to skip "this"
+	public void increment(double seconds) {
+		second += seconds;
+
+		minute += second / 60.0;  // initially, overflow happens only in seconds
+		hour += minute / 60;  // which can result in overflow in mins
+		second %= 60.0;
+		minute %= 60;
+		hour %= 24;
+
+	}  // end add()
+
 
 }  // end class

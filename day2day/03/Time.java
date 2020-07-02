@@ -71,10 +71,10 @@ public class Time{
 
 		// Div. gives carry; mod gives remainder
 		// EX: 62 mins = 1 hr 2 mins, cuz 62/60=1, 62%60=2
-		hr += min / 60;
 		min += sec / 60.0;
+		hr += min / 60;
 		// Must "save" carries first by doing mod last
-		sec %= 60.0;  // sec = sec % 60
+		sec %= 60.0;  // sec = sec % 60.0
 		min %= 60;
 		hr %= 24;
 
@@ -88,8 +88,8 @@ public class Time{
 		double sec = this.second + t2.second;
 
 		// normalize
-		hr += min / 60;
 		min += sec / 60.0;
+		hr += min / 60;
 		sec %= 60.0;  // sec = sec % 60
 		min %= 60;
 		hr %= 24;

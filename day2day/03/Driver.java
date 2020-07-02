@@ -3,6 +3,10 @@ import java.util.*;
 
 public class Driver{
     public static void main(String[] args) {
+        AClass aClassObject = new AClass();
+        System.out.println(aClassObject);
+        System.out.println(aClassObject.toString());
+
         Time t1 = new Time();
         t1.setMinute(25);
         Time t2 = new Time(1, 2, 3.4);

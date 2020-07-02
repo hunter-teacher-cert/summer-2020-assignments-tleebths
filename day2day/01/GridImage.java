@@ -8,13 +8,13 @@ public class GridImage {
 		int rows = 10;  // initialize 20x20 array
 		int cols = 10;
 		int[][] grid = new int[rows][cols];
-		
+
 //		rowPop(grid, 1, 255);
 //		colPop(grid, 5, 2);
 //		invert(grid);
 		diagonal(grid, 8, 3, 0, 111);
 		diagonal(grid, 0, 5, 3, 222);
-		
+
 		print2d(grid);
 		System.out.println();
 
@@ -26,8 +26,24 @@ public class GridImage {
 		2: down + left
 		3: down + right
 	 */
-	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
-		while (r < d2.length && c < d2[0].length && r >= 0 && c >= 0) {		
+
+	 // Recursive solution
+ 	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
+ 		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0)
+ 			return;  // base cases: arrayIndexOutOfBounds
+
+ 		d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
+
+ 		direction < 2 ? r-- : r++ ; // up or down
+
+ 		direction % 2 == 0 ? c-- : c++ ; // left or right
+
+ 		diagonal(d2, r, c, direction, value);
+	}  //end diagonal
+
+	 // iterative solution
+/*	 public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
+		while (r < d2.length && c < d2[0].length && r >= 0 && c >= 0) {
 			d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
 
 			if (direction == 0) {
@@ -43,30 +59,10 @@ public class GridImage {
 				r = r + 1;
 				c = c + 1;
 			}
-			
+
 		} // end while
-		
-	}	 
-	 
-/*	Efficient solution 
-	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
-		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0)
-			return;  // base cases: arrayIndexOutOfBounds
-		
-		d2[r][c] = value;  // recursive case: flip the element, go to next "coordinate"
-		
-		if (direction < 2)  // up
-			r--;
-		else
-			r++;
-		
-		if (direction % 2 == 0)  // left
-			c--;
-		else
-			c++;
-		
-		diagonal(d2, r, c, direction, value);
-	}  //end diagonal
+
+	}
 */
 	public static void print2d(int[][] d2) {
 
@@ -100,12 +96,11 @@ public class GridImage {
 				if (d2[r][c] != 0)
 					d2[r][c] = 0;
 				else
-					d2[r][c] = 255;			
+					d2[r][c] = 255;
 			}  // end c
 		}  // end r
-	
+
 	}//end invert
 
 
 }	// end class
-

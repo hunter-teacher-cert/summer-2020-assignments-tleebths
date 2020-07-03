@@ -16,10 +16,10 @@ public class Driver {
         t1 = new Time(22, 30, 59);
         t2 = new Time(2, 59, 0.6);
         t3 = new Time(23, 14, 14);
-        System.out.println(t1.compareTo(t2));  // 1
+        System.out.println(t1.compareTo(t2));  // +
         System.out.println(t1.compareTo(t1));  // 0
-        System.out.println(t2.compareTo(t1));  // -1
-        System.out.println(t3.compareTo(t1));  // 1
+        System.out.println(t2.compareTo(t1));  // -
+        System.out.println(t3.compareTo(t1));  // +
         System.out.println(t1.difference(t2));
         System.out.println(t3.difference(t1));
 

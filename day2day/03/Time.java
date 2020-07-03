@@ -157,17 +157,29 @@ public class Time{
 
 		Time t = new Time(hr, min, sec);
 		t.normalize();  // normalize if min or sec is negative
-		
+
 		return t;
 	}
 
-	/* Returns an int x such that:
+	/* Returns int x such that:
 	   x < 0  if this is earlier than other
-	   x == 0 if this.equals(other)
+	   x == 0 if this.equals(other) or diff < 0.1 s
 	   x > 0  if this is later than other
 	 */
 	public int compareTo(Time other) {
-		if (this.hour < other.hour)
+		int diff = this.hour - other.hour;
+		if (diff != 0)
+			return diff;
+
+		diff = this.minute - other.minute;
+		if (diff != 0)
+			return diff;
+
+		diff = (int)((this.second - other.second) * 10);
+		return diff;
+
+/*	original, probably faster algorithm
+	if (this.hour < other.hour)
 			return -1;
 		else if (this.hour > other.hour)
 			return 1;
@@ -183,7 +195,7 @@ public class Time{
 			return 1;
 
 		return 0; // no diffs, so they're same
-	}
+*/	}  // end compareTo()
 
 
 }  // end class

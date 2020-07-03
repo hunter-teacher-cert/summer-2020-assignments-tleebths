@@ -167,6 +167,10 @@ public class Time{
 	   x > 0  if this is later than other
 	 */
 	public int compareTo(Time other) {
+		return (this.hour - other.hour) * 256 + (this.minute - other.minute) * 256
+				+ (this.second - other.second);
+
+/* v2: easier to read, but may be less efficient
 		int diff = this.hour - other.hour;
 		if (diff != 0)
 			return diff;
@@ -177,6 +181,7 @@ public class Time{
 
 		diff = (int)((this.second - other.second) * 10);
 		return diff;
+*/
 
 /*	original, probably faster algorithm
 	if (this.hour < other.hour)

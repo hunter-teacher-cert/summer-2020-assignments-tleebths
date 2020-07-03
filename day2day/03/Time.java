@@ -143,6 +143,13 @@ public class Time{
 	// Assumes both Time are noramlized: hr<24, min<60, sec<60
 	public Time difference(Time other) {
 		int compared = this.compareTo(other);  // -1=earlier, 0=same, 1=later
+		if (compared < 0)
+			compared *= -1;  // take abs value
+
+		Time t = new Time(0, 0, compared);
+		t.normalize();
+
+/* original algo
 		int hr, min, sec;  // calculated diff
 
 		if (compared < 0) {  // this earlier than other
@@ -157,18 +164,18 @@ public class Time{
 
 		Time t = new Time(hr, min, sec);
 		t.normalize();  // normalize if min or sec is negative
-
+*/
 		return t;
-	}
+	}  // end difference()
 
 	/* Returns int x such that:
 	   x < 0  if this is earlier than other
-	   x == 0 if this.equals(other) or diff < 0.1 s
+	   x == 0 if this.equals(other) or < 0.1s diff
 	   x > 0  if this is later than other
 	 */
 	public int compareTo(Time other) {
-		return (this.hour - other.hour) * 256 + (this.minute - other.minute) * 256
-				+ (this.second - other.second);
+		return (this.hour - other.hour) * 3600 + (this.minute - other.minute) * 60
+				+ (int)((this.second - other.second) * 10)/10;
 
 /* v2: easier to read, but may be less efficient
 		int diff = this.hour - other.hour;

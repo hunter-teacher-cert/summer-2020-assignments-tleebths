@@ -49,8 +49,23 @@ public class Time{
 		this.second = second;
 	}
 
+	// converts to 12-hr format. Assumes normalized time values
 	public String toString() {
-		return String.format("%02d:%02d:%04.1f", this.getHour(), this.getMinute(), this.getSecond());
+		int hr = hour;
+
+		if (hour > 12) {  // 1 pm or later
+			return String.format("%02d:%02d:%04.1f p.m.", hour - 12, minute, second);
+		} else if (hour > 11) {  // 12 pm noon to 12:59:59.9 pm
+			return String.format("12:%02d:%04.1f p.m.", minute, second);
+		} else if (hour > 0) {  // 1 am to 11:59:59.9 am
+			return String.format("%02d:%02d:%04.1f a.m.", hour, minute, second);
+		} else {  // 12:00 am midnight to 12:59:59.9 am
+			return String.format("12:%02d:%04.1f a.m.", minute, second);
+		}
+
+		/* 24-hr format
+		return String.format("%02d:%02d:%04.1f", hour, minute, second);
+		*/
 	}
 
 	public void printTime() {
@@ -108,6 +123,76 @@ public class Time{
 		hour %= 24;
 
 	}  // end add()
+
+	// instance method
+	public void addMinutes(int mins) {
+		minute += mins;
+
+		hour += minute / 60;  // which can result in overflow in mins
+		minute %= 60;
+		hour %= 24;
+
+	}  // end add()
+
+	// return the (+) number of seconds between the original time and other
+	// Find out which is later time, subtract the other
+	// Assumes both Time are noramlized: hr<24, min<60, sec<60
+	public Time difference(Time other) {
+		int compared = this.compareTo(other);  // -1=earlier, 0=same, 1=later
+		int hr, min, sec;  // calculated diff
+
+		if (compared < 0) {  // this earlier than other
+			hr = other.hour - this.hour;
+			min = other.minute - this.minute;
+			sec = (int) (other.second - this.second);
+		} else {
+			hr = this.hour - other.hour;
+			min = this.minute - other.minute;
+			sec = (int) (this.second - other.second);
+		}  // end if else
+
+		Time t = new Time(hr, min, sec);
+
+		// normalize if min or sec is negative
+		normNeg(t);
+		return t;
+	}
+
+	// if min or sec is negative, fix it
+	public static void normNeg(Time t) {
+		if (t.second < 0) {
+			t.second += 60;
+			t.minute--;
+		}
+		if (t.minute < 0) {
+			t.minute += 60;
+			t.hour--;
+		}
+	}
+
+	/* Returns an int x such that:
+	   x < 0  if this is earlier than other
+	   x == 0 if this.equals(other)
+	   x > 0  if this is later than other
+	 */
+	public int compareTo(Time other) {
+		if (this.hour < other.hour)
+			return -1;
+		else if (this.hour > other.hour)
+			return 1;
+
+		if (this.minute < other.minute)  // same hour
+			return -1;
+		else if (this.minute > other.minute)
+			return 1;
+
+		if (this.second < other.second)  // same hour & same minute
+			return -1;
+		else if (this.second > other.second)
+			return 1;
+
+		return 0; // no diffs, so they're same
+	}
 
 
 }  // end class

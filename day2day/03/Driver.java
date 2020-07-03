@@ -1,12 +1,37 @@
 import java.io.*;
 import java.util.*;
 
-public class Driver{
+// some testing problems from changing time values. Results in debugging with no bugs.
+// Methods work correctly but thought they're wrong.
+public class Driver {
     public static void main(String[] args) {
-        AClass aClassObject = new AClass();
-        System.out.println(aClassObject);
-        System.out.println(aClassObject.toString());
+        Time t1 = new Time(23, 59, 59);
+        Time t2 = new Time(0, 1+60*2, 0);
+        Time t3 = new Time(23, 14, 59.9);
 
+        t1.addMinutes(t2.getMinute());
+        System.out.println("Should be 02:00:59: " + t1);
+
+        t1 = new Time(22, 30, 59);
+        t2 = new Time(2, 59, 0.6);
+        t3 = new Time(23, 14, 14);
+        System.out.println(t1.compareTo(t2));  // 1
+        System.out.println(t1.compareTo(t1));  // 0
+        System.out.println(t2.compareTo(t1));  // -1
+        System.out.println(t3.compareTo(t1));  // -1
+        System.out.println(t1.difference(t2));
+        System.out.println(t3.difference(t1));
+
+        t1 = new Time(13, 30, 59);
+        t2 = new Time(12, 59, 0.6);
+        t3 = new Time(11, 14, 41);
+        Time t4 = new Time(0, 21, 7);
+        System.out.println(t1);
+        System.out.println(t2);
+        System.out.println(t3);
+        System.out.println(t4);
+
+/* tested positive
         Time t1 = new Time();
         t1.setMinute(25);
         Time t2 = new Time(1, 2, 3.4);
@@ -14,7 +39,6 @@ public class Driver{
         Time t3 = new Time(0, 25, 0);
         Time t4 = t1;
         Time t5 = Time.addTime(t1, t2);
-
 
         System.out.printf("t1: %s\n", t1.toString());
         System.out.print("t2: ");
@@ -32,5 +56,9 @@ public class Driver{
         t1.increment(2+60*60*24);
         System.out.println("Should be 00:00:01: " + t1);
 
-    }
-}
+        AClass aClassObject = new AClass();
+        System.out.println(aClassObject);
+        System.out.println(aClassObject.toString());
+*/
+    }  // end main
+}  // end class

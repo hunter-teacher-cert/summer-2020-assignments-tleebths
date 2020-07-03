@@ -5,6 +5,7 @@ import java.util.*;
 // Methods work correctly but thought they're wrong.
 public class Driver {
     public static void main(String[] args) {
+        // challenge problems
         Time t1 = new Time(23, 59, 59);
         Time t2 = new Time(0, 1+60*2, 0);
         Time t3 = new Time(23, 14, 59.9);
@@ -18,7 +19,7 @@ public class Driver {
         System.out.println(t1.compareTo(t2));  // 1
         System.out.println(t1.compareTo(t1));  // 0
         System.out.println(t2.compareTo(t1));  // -1
-        System.out.println(t3.compareTo(t1));  // -1
+        System.out.println(t3.compareTo(t1));  // 1
         System.out.println(t1.difference(t2));
         System.out.println(t3.difference(t1));
 
@@ -31,13 +32,14 @@ public class Driver {
         System.out.println(t3);
         System.out.println(t4);
 
+
 /* tested positive
         Time t1 = new Time();
-        t1.setMinute(25);
+        t1.setMinute(25);  // 0:25:00
         Time t2 = new Time(1, 2, 3.4);
-        t2.setSeond(69);
+        t2.setSeond(69);  // 1:02:69
         Time t3 = new Time(0, 25, 0);
-        Time t4 = t1;
+        Time t4 = t1;  // 1:28:09
         Time t5 = Time.addTime(t1, t2);
 
         System.out.printf("t1: %s\n", t1.toString());

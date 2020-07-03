@@ -79,21 +79,37 @@ public class Time{
 	}
 
 	// Normalizes results: <24 hrs, <60 mins, <60 secs
+	// But first gets rid of negative min or sec
+	public void normalize() {
+		if (second < 0) {
+			second += 60;
+			minute--;
+		}
+		if (minute < 0) {
+			minute += 60;
+			hour--;
+		}
+
+		// Div. gives carry; mod gives remainder
+		// EX: 62 mins = 1 hr 2 mins, cuz 62/60=1, 62%60=2
+		minute += second / 60.0;
+		hour += minute / 60;
+
+		// Must "save" carries first by doing mod last
+		second %= 60.0;  // sec = sec % 60.0
+		minute %= 60;
+		hour %= 24;
+	}
+
 	public static Time addTime(Time t1, Time t2) {
 		int hr = t1.hour + t2.hour;
 		int min = t1.minute + t2.minute;
 		double sec = t1.second + t2.second;
 
-		// Div. gives carry; mod gives remainder
-		// EX: 62 mins = 1 hr 2 mins, cuz 62/60=1, 62%60=2
-		min += sec / 60.0;
-		hr += min / 60;
-		// Must "save" carries first by doing mod last
-		sec %= 60.0;  // sec = sec % 60.0
-		min %= 60;
-		hr %= 24;
+		Time t = new Time(hr, min, sec);
+		t.normalize();  // reduce overflows
 
-		return new Time(hr, min, sec);  // skips new Time variable
+		return t;  // skips new Time variable
 	}  // end addTime()
 
 	// pure method
@@ -102,37 +118,25 @@ public class Time{
 		int min = this.minute + t2.minute;
 		double sec = this.second + t2.second;
 
-		// normalize
-		min += sec / 60.0;
-		hr += min / 60;
-		sec %= 60.0;  // sec = sec % 60
-		min %= 60;
-		hr %= 24;
+		Time t = new Time(hr, min, sec);
+		t.normalize();  // reduce overflows
+		return t;  // skips new Time variable
 
-		return new Time(hr, min, sec);
 	}  // end add()
 
 	// modifier - is it  bad practice to omit "this"
 	public void increment(double seconds) {
 		second += seconds;
-
-		minute += second / 60.0;  // initially, overflow happens only in seconds
-		hour += minute / 60;  // which can result in overflow in mins
-		second %= 60.0;
-		minute %= 60;
-		hour %= 24;
+		this.normalize();
 
 	}  // end add()
 
 	// instance method
 	public void addMinutes(int mins) {
 		minute += mins;
+		this.normalize();
 
-		hour += minute / 60;  // which can result in overflow in mins
-		minute %= 60;
-		hour %= 24;
-
-	}  // end add()
+	}  // end addMinutes()
 
 	// return the (+) number of seconds between the original time and other
 	// Find out which is later time, subtract the other
@@ -152,22 +156,9 @@ public class Time{
 		}  // end if else
 
 		Time t = new Time(hr, min, sec);
-
-		// normalize if min or sec is negative
-		normNeg(t);
+		t.normalize();  // normalize if min or sec is negative
+		
 		return t;
-	}
-
-	// if min or sec is negative, fix it
-	public static void normNeg(Time t) {
-		if (t.second < 0) {
-			t.second += 60;
-			t.minute--;
-		}
-		if (t.minute < 0) {
-			t.minute += 60;
-			t.hour--;
-		}
 	}
 
 	/* Returns an int x such that:

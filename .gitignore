@@ -3,6 +3,10 @@
 #compiled class files
 *.class
 
+#pixLab image files, except mine
+*.jpg
+!bee*.jpg
+
 # Log file
 *.log
 

@@ -1,10 +1,10 @@
 /**
  * This class contains class (static) methods
- * that will help you test the Picture class 
+ * that will help you test the Picture class
  * methods.  Uncomment the methods and the code
  * in the main to test.
- * 
- * @author Barbara Ericson 
+ *
+ * @author Barbara Ericson
  */
 public class PictureTester
 {
@@ -16,7 +16,7 @@ public class PictureTester
     beach.zeroBlue();
     beach.explore();
   }
-  
+
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {
@@ -25,7 +25,7 @@ public class PictureTester
     caterpillar.mirrorVertical();
     caterpillar.explore();
   }
-  
+
   /** Method to test mirrorTemple */
   public static void testMirrorTemple()
   {
@@ -34,7 +34,7 @@ public class PictureTester
     temple.mirrorTemple();
     temple.explore();
   }
-  
+
   /** Method to test the collage method */
   public static void testCollage()
   {
@@ -42,7 +42,7 @@ public class PictureTester
     canvas.createCollage();
     canvas.explore();
   }
-  
+
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
@@ -50,29 +50,22 @@ public class PictureTester
     swan.edgeDetection(10);
     swan.explore();
   }
-  
+
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
   {
-    // uncomment a call here to run a test
-    // and comment out the ones you don't want
-    // to run
-    testZeroBlue();
-    //testKeepOnlyBlue();
+    // Doesn't exist yet
+    // testKeepOnlyBlue();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();
     //testFixUnderwater();
-    //testMirrorVertical();
-    //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
     //testMirrorDiagonal();
-    //testCollage();
     //testCopy();
-    //testEdgeDetection();
     //testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();
@@ -80,5 +73,14 @@ public class PictureTester
     //testSetRedToHalfValueInTopHalf();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
+
+    // uncomment a call here to run a test
+    // and comment out the ones you don't want
+    // to run
+    //testZeroBlue();
+    //testMirrorVertical();
+    //testMirrorTemple();
+    //testCollage();
+    //testEdgeDetection();
   }
 }

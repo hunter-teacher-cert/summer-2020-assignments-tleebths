@@ -804,6 +804,9 @@ public class PictureExplorer implements MouseMotionListener, ActionListener, Mou
     pic.explore();
     Picture smallPic = pic.scale(0.15873, 0.15873);
     smallPic.explore();
+
+    // testing area
+    DigitalPicture p = new SimplePicture();  // interface. abstract, cannot be instantiated
   }
 
 }

@@ -112,6 +112,71 @@ public class Picture extends SimplePicture
     }
   }
 
+  /** Method to set all colors to (255 - existingValue) */
+  public void negate()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(255 - pixelObj.getRed());
+        pixelObj.setGreen(255 - pixelObj.getGreen());
+        pixelObj.setBlue(255 - pixelObj.getBlue());
+      }
+    }
+  }
+
+  /** Method to set all colors to (255 - existingValue) */
+  public void grayscale()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    int avg;
+
+    for (Pixel[] rowArray : pixels)
+    {
+        for (Pixel pixelObj : rowArray)
+        {
+            avg = (pixelObj.getRed() + pixelObj.getGreen() + pixelObj.getBlue())/3;
+            pixelObj.setRed(avg);
+            pixelObj.setGreen(avg);
+            pixelObj.setBlue(avg);
+        }
+    }
+  }
+
+  /** Method to make fish more visible under water
+  *  maybe by turning every pixel white except fish?
+  */
+  public void fixUnderwater()
+  {
+      Pixel[][] pixels = this.getPixels2D();
+      int margin = 14, newValue = 255;  // if outside margin, becomes newValue
+      int r = 18, g = 160, b = 175;  // fish seems roughly (18, 160, 175)
+
+      for (Pixel[] rowArray : pixels)
+      {
+          for (Pixel pixelObj : rowArray)
+          {
+              if (!(withinMargin(pixelObj.getRed(), r, margin) &&
+              withinMargin(pixelObj.getGreen(), g, margin) &&
+              withinMargin(pixelObj.getBlue(), b, margin))) {
+                  pixelObj.setRed(newValue);
+                  pixelObj.setGreen(newValue);
+                  pixelObj.setBlue(newValue);
+              }  // end if
+          }
+      }  // end nested for loops
+  }  // end fixUnderwater()
+
+  // helper method to check if value1 - value2 is within margin (>= 0)
+  private boolean withinMargin(int value1, int value2, int margin) {
+      int diff = value1 - value2;
+      if (diff < 0)
+        diff *= -1;
+      return diff <= margin;
+  }
+
   /** Method that mirrors the picture around a
     * vertical mirror in the center of the picture
     * from left to right */

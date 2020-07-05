@@ -255,7 +255,7 @@ public class Picture extends SimplePicture
           for (int row = 0; row < height; row++) {
               for (int col = 0; col < width; col++) {
                   if (col < row && col < height) {
-                      System.out.println(row + "\t" + col + "\t" + (2*row - col));
+                      //System.out.println(row + "\t" + col + "\t" + (2*row - col));
                       leftPixel = pixels[row][col];
                       rightPixel = pixels[col][row];
                       rightPixel.setColor(leftPixel.getColor());
@@ -286,7 +286,7 @@ public class Picture extends SimplePicture
             }
         }  // ends nested for loops
 
-        System.out.println(count + " iterations");
+        System.out.println("Should be 18410 iterations" + count);
     }  // end mirrorTemple()
 
   /** copy from the passed fromPic to the
@@ -360,6 +360,38 @@ public class Picture extends SimplePicture
           leftPixel.setColor(Color.BLACK);
         else
           leftPixel.setColor(Color.WHITE);
+      }
+    }
+  }
+
+  /** Method to show large changes in color; adds top to bottom detetction
+    * @param edgeDist the distance for finding edges
+    */
+  public void edgeDetection2(int edgeDist)
+  {
+    Pixel leftPixel = null, rightPixel = null, bottomPixel = null;
+    Pixel[][] pixels = this.getPixels2D();
+    Color rightColor = null, bottomColor = null;
+
+    for (int row = 0; row < pixels.length-1; row++)
+    {
+      for (int col = 0;
+           col < pixels[0].length-1; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][col+1];
+        rightColor = rightPixel.getColor();
+
+        bottomPixel = pixels[row+1][col];
+        bottomColor = bottomPixel.getColor();
+
+        if (leftPixel.colorDistance(rightColor) > edgeDist ||
+            leftPixel.colorDistance(bottomColor) > edgeDist) {
+            leftPixel.setColor(Color.BLACK);
+        } else {
+            leftPixel.setColor(Color.WHITE);
+        }
+
       }
     }
   }

@@ -196,7 +196,6 @@ public class Picture extends SimplePicture
       }
     }
   }
-
     /** Method that mirrors half of the picture around a
     * horizontal mirror in the center of the picture
     * from top to bottom */
@@ -238,6 +237,32 @@ public class Picture extends SimplePicture
       }
     }
   }
+
+
+      /** Method that mirrors the lower half of the picture around a
+      * diagnoal mirror from the upper left corner of the picture
+      * (x = y) to the upper half of that square. EX: On row 3,
+      * middle of changed pixel is 3, rightmost pixel is 3+3.
+      */
+      public void mirrorDiagonal()
+      {
+          Pixel[][] pixels = this.getPixels2D();
+          Pixel leftPixel = null;
+          Pixel rightPixel = null;
+          int height = pixels.length;
+          int width = pixels[0].length;
+
+          for (int row = 0; row < height; row++) {
+              for (int col = 0; col < width; col++) {
+                  if (col < row && col < height) {
+                      System.out.println(row + "\t" + col + "\t" + (2*row - col));
+                      leftPixel = pixels[row][col];
+                      rightPixel = pixels[col][row];
+                      rightPixel.setColor(leftPixel.getColor());
+                  }
+              }
+          }
+      }
 
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()

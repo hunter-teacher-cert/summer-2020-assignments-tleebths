@@ -2,15 +2,14 @@ public class SuperArray {
     private int[] data;
     private int numberElements;
 
-	// defaults to size 10
-	public SuperArray() {
-		numberElements = 10;
-		data = new int[0];
-	}
-
 	public SuperArray(int size) {
 		data = new int[size];
 		numberElements = 0;  // nothing stored yet
+	}
+
+	// defaults to size 10
+	public SuperArray() {
+		this(10);
 	}
 
 	/** Returns the number of items used in the array */

@@ -29,12 +29,15 @@ public class SuperArray {
 
 	}  // end add()
 
-	/** Method to add an element at location index. If index is past
+	/** Method to add an element at location index. Do nothing
+     *  if adding past end of used elements. If index is past
 	 *  the end of the array, grow the array. Then, shift down all
 	 *  the elements past index to create room and then insert value
 	 *  into the correct location.
 	 */
 	public void add(int index, int value) {
+        if (index > numberElements)
+            return;
  		if (numberElements == data.length) {
  			this.grow();
  		}

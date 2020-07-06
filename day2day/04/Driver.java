@@ -9,6 +9,7 @@ public class Driver {
 		sa.add(3);
 		sa.add(2,2);
 		sa.add(4,4);
+		sa.add(25,4);
 		System.out.printf("array of %d items: %s\n", sa.size(), sa);
 		sa.remove(0);
 		sa.remove(8);

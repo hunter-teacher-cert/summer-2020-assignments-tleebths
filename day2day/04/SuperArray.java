@@ -2,9 +2,9 @@ public class SuperArray {
     private int[] data;
     private int numberElements;
 
-	// default constructor
+	// defaults to size 10
 	public SuperArray() {
-		numberElements = 0;
+		numberElements = 10;
 		data = new int[0];
 	}
 

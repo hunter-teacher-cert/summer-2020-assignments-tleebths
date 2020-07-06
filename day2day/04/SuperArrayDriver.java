@@ -20,6 +20,7 @@ public class SuperArrayDriver
       sa.add(i);
     }//for i
     System.out.println(sa);
+	System.out.println("Testing isEmpty (should be false)");
     System.out.println(sa.isEmpty());
 
     System.out.println("\nTesting add at index 5, 0 and 17(end)");

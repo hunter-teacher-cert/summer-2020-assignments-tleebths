@@ -1,11 +1,24 @@
 public class Driver {
 
 	public static void main(String[] args) {
-		SuperArray sa0 = new SuperArray();
-		System.out.println("empty array: " + sa0);
-		SuperArray sa2 = new SuperArray(2);
-		System.out.println("array of 2 items: " + sa2);
+		SuperArray sa = new SuperArray(2);
+		sa.add(9);
+		sa.add(2);
+		sa.grow();
+		sa.add(3);
+		sa.add(4);
+		System.out.printf("array of %d items: %s\n", sa.size(), sa);
 
+		// SuperArray sa0 = new SuperArray();
+		// System.out.printf("empty array, should be empty, cannot add (f): %s, %s, %b\n",
+		// 					sa0, sa0.isEmpty(), sa0.add(1));
+		//
+		// //System.out.printf("array of %d items, can add: %s, %b\n",
+		// //					sa2.size(), sa2, sa2.add(2));
+		// System.out.printf("array of %d items: %s\n", sa2.size(), sa2);
+		// sa2.add(2);
+		// System.out.printf("1st item: %d, 2nd item: %d, 3rd item: %d\n",
+		// 					sa2.get(0), sa2.get(1), sa2.get(2));
 
 	}  // end main()
 

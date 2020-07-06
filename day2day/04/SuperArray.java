@@ -107,4 +107,16 @@ public class SuperArray {
 		return s;
 	}  // end toString()
 
-}
+    /** Method to detail contents */
+    public String debug() {
+        String s = "";
+        s = "Size: " + this.data.length;
+        s = s + " LastItem: " + data[numberElements-1] + "  Data: ";
+        for (int i = 0; i < data[numberElements-1]; i++) {
+    	    s = s + data[i] + ", ";
+        }
+        s = s + "\n";
+        return s;
+    }
+
+}  // end class

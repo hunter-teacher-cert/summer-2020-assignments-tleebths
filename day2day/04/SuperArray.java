@@ -20,17 +20,35 @@ public class SuperArray {
 
 	/** This routine will add the parameter value to the end of the SuperArray
 	 *  (don’t forget to update numberElements).
-	 *  If there is no more room in the array do nothing.
+	 *  If there is no more room in the array it will grow then add.
 	 */
-    public boolean add(int value) {
-		boolean flag = false;  // true if could add to data
-		if (numberElements <= data.length && data.length > 0) {
-			data[numberElements++] = value;
-			flag = true;
+    public void add(int value) {
+		if(numberElements == data.length) {
+			this.grow();
 		}
+		data[numberElements++] = value;
 
-		return flag;
 	}  // end add()
+
+	/** Method to add an element at location index. If index is past
+	 *  the end of the array, do nothing. Otherwise, shift down all
+	 *  the elements past index to create room and then insert value
+	 *  into the correct location. Don’t forget to grow the array
+	 *  as in the previous question if necessary.
+	 */
+	public void add(int index, int value) {
+ 		if (numberElements == data.length) {
+ 			this.grow();
+ 		}
+		// copy from back to front to avoid overwriting
+		for (int i=numberElements; i>index; i--) {
+ 			data[i] = data[i-1];
+		}
+		// insert value, update tracker
+		data[index] = value;
+		numberElements++;
+
+ 	}  // end add()
 
 	/** Returns the value at location index from the array.
 	 *  If index is past the last element, return -1.
@@ -47,12 +65,16 @@ public class SuperArray {
 
 	/** Method to increase capacity of array */
 	public void grow() {
-		int[] newData = new int[2*data.length];  // doubles capacity
-		for (int i=0; i < numberElements; i++){  // copy over
+ 		// doubles capacity even for size 0
+		int[] newData = new int[2*data.length + 1];
+
+		// copy over
+		for (int i=0; i < numberElements; i++){
 			newData[i] = data[i];
 		}
 
-		data = newData;  // switch over
+		// switch over
+		data = newData;
 	}
 
 	/** method to return a String representation of SuperArray */

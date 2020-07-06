@@ -3,10 +3,12 @@ public class Driver {
 	public static void main(String[] args) {
 		SuperArray sa = new SuperArray(2);
 		sa.add(9);
-		sa.add(2);
+		sa.add(1);
 		sa.grow();
+		sa.grow();  // test when there are unused array elements
 		sa.add(3);
-		sa.add(4);
+		sa.add(2,2);
+		sa.add(4,4);
 		System.out.printf("array of %d items: %s\n", sa.size(), sa);
 
 		// SuperArray sa0 = new SuperArray();

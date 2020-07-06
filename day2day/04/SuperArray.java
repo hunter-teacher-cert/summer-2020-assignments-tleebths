@@ -31,10 +31,9 @@ public class SuperArray {
 	}  // end add()
 
 	/** Method to add an element at location index. If index is past
-	 *  the end of the array, do nothing. Otherwise, shift down all
+	 *  the end of the array, grow the array. Then, shift down all
 	 *  the elements past index to create room and then insert value
-	 *  into the correct location. Don’t forget to grow the array
-	 *  as in the previous question if necessary.
+	 *  into the correct location.
 	 */
 	public void add(int index, int value) {
  		if (numberElements == data.length) {
@@ -52,6 +51,7 @@ public class SuperArray {
 
 	/** Method to delete the element at location index from the array.
 	 *  Don’t forget to shift down elements to remove the open space.
+	 *  returns -999999 if index is invalid
 	 */
 	public int remove(int index) {
 		if (index < 0 || index >= numberElements)

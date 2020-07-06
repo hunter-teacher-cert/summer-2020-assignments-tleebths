@@ -10,6 +10,9 @@ public class Driver {
 		sa.add(2,2);
 		sa.add(4,4);
 		System.out.printf("array of %d items: %s\n", sa.size(), sa);
+		sa.remove(0);
+		sa.remove(8);
+		System.out.printf("array of %d items: %s\n", sa.size(), sa);
 
 		// SuperArray sa0 = new SuperArray();
 		// System.out.printf("empty array, should be empty, cannot add (f): %s, %s, %b\n",

@@ -50,6 +50,22 @@ public class SuperArray {
 
  	}  // end add()
 
+	/** Method to delete the element at location index from the array.
+	 *  Don’t forget to shift down elements to remove the open space.
+	 */
+	public int remove(int index) {
+		if (index < 0 || index >= numberElements)
+			return -999999;
+
+		int removed = data[index];
+		for (int i=index; i < numberElements; i++) {
+			data[i] = data[i+1];
+		}
+
+		numberElements--;
+		return removed;
+	}  // end remove()
+
 	/** Returns the value at location index from the array.
 	 *  If index is past the last element, return -1.
 	 */

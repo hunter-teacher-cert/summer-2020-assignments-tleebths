@@ -146,6 +146,23 @@ public class Deck {
     }  // end selectionSort()
 
     /**
+     * Reorders the cards (in place) using insertion sort.
+     */
+    public void insertionSort() {
+        // Start from the second card, i=1. For each card at i,
+        // check if it's smaller than the card at each preceding
+        // slot. If so, swap the cards. Keep swwapping until
+        // preceding Cards are smaller.
+        for (int i=1; i<cards.length; i++) {
+            Card saved = cards[i];
+            for (int j=i-1; j>0 && saved.compareTo(cards[j]) < 0; j--){
+                swapCards(j, j+1);
+            }
+        }
+
+    }
+
+    /**
      * Returns a subset of the cards in the deck.
      */
     public Deck subdeck(int low, int high) {
@@ -179,26 +196,24 @@ public class Deck {
 
             // if d1 is empty, d2 wins
             if (i >= d1.size()) {
-                System.out.println(d2.cards[j]);
                 combined.cards[k] = d2.cards[j];
                 j++;
             } else if (j >= d2.size()) {  // if d2 is empty, d1 wins
-                System.out.println(d1.cards[i]);
                 combined.cards[k] = d1.cards[i];
                 i++;
             } else {
-
                 // otherwise, compare the two cards
-                // add the winner to the new deck at position k
                 temp = d1.cards[i].compareTo( d2.cards[j] );
+
+                // add the winner to the new deck at position k
                 if (temp < 0) {
-                    System.out.println(d1.cards[i]);
                     combined.cards[k] = d1.cards[i];
                     i++;
                 } else {
-                    System.out.println(d2.cards[j]);
+                    // System.out.println(d2.cards[j]);
                     combined.cards[k] = d2.cards[j];
                     j++;
+                    // System.out.println(Arrays.toString(combined.cards));
                 }
                 // remember to increment either i or j
             }
@@ -226,22 +241,20 @@ public class Deck {
      */
     public Deck mergeSort() {
         // if the deck is 0 or 1 cards, return it
-
+        if (cards.length < 2)
+            return this;
 
         // divide the deck into two subdecks
-
+        Deck deck1 = subdeck(0, cards.length/2 - 1);
+        Deck deck2 = subdeck(cards.length/2, cards.length-1);
 
         // sort the subdecks using mergeSort
-
+        deck1 = deck1.mergeSort();
+        deck2 = deck2.mergeSort();
 
         // merge the two halves and return the result
-        return this;
-    }
+        return merge(deck1, deck2);
+    }  // end mergeSort()
 
-    /**
-     * Reorders the cards (in place) using insertion sort.
-     */
-    public void insertionSort() {
-    }
 
-}
+}  // end class

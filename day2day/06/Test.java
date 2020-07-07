@@ -48,9 +48,9 @@ public class Test {
         deck = new Deck();
         deck.shuffle();
         deck = deck.subdeck(0,10);
-        deck.almostMergeSort();
-        System.out.println("almostMergeSorted");
-        deck.print();
+        deck = deck.almostMergeSort();
+        //System.out.println("almostMergeSorted");
+        //deck.print();
         checkSorted(deck);
 
         System.out.println("Testing mergesort...");

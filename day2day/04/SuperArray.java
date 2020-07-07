@@ -36,7 +36,7 @@ public class SuperArray {
 	 *  into the correct location.
 	 */
 	public void add(int index, int value) {
-        if (index > numberElements)
+        if (index > numberElements || index < 0)
             return;
  		if (numberElements == data.length) {
  			this.grow();
@@ -51,13 +51,31 @@ public class SuperArray {
 
  	}  // end add()
 
+    /** Method to set an element at location index. Do nothing
+     *  if index is past end of used elements. Otherwise,
+     *  remove the item at given index and replace with new value.
+	 */
+	public int set(int index, int value) {
+        int removed = Integer.MIN_VALUE;
+
+        if (index <= numberElements && index >= 0) {
+            // store item to be removed
+            if (index < numberElements)
+                removed = data[index];
+
+            data[index] = value;
+        }
+
+        return removed;
+ 	}  // end add()
+
 	/** Method to delete the element at location index from the array.
 	 *  Don’t forget to shift down elements to remove the open space.
-	 *  returns -999999 if index is invalid
+	 *  returns smallest possible int if index is invalid
 	 */
 	public int remove(int index) {
 		if (index < 0 || index >= numberElements)
-			return -999999;
+			return Integer.MIN_VALUE;
 
 		int removed = data[index];
 		for (int i=index; i < numberElements; i++) {
@@ -69,10 +87,10 @@ public class SuperArray {
 	}  // end remove()
 
 	/** Returns the value at location index from the array.
-	 *  If index is past the last element, return -1.
+	 *  If index is past the last element, return smallest Java int
 	 */
     public int get(int index) {
-		return index < numberElements ? data[index] : -1;
+		return (index < numberElements && index >= 0)? data[index] : Integer.MIN_VALUE;
 	}
 
 	/** Returns true if ther are no elemets in the internal array, false otherwise.

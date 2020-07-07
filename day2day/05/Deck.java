@@ -7,6 +7,7 @@ import java.util.Random;
 public class Deck {
 
     private Card[] cards;
+    private Random random = new Random();
 
     /**
      * Constructs a standard deck of 52 cards.
@@ -83,7 +84,7 @@ public class Deck {
      * Chooses a random number between low and high, including both.
      */
     public int randomInt(int low, int high) {
-        return 0;
+        return random.nextInt(high-low) + low;
     }
 
     /**
@@ -99,33 +100,50 @@ public class Deck {
      * Randomly permutes the array of cards.
      */
     public void shuffle() {
-        // choose a random number between i and length - 1
+        for (int i=0; i < cards.length / 2; i++) {
+            // choose a random number between i and length - 1
+            int n = randomInt(i, cards.length);
 
+            // swap the ith card and the randomly-chosen card
+            swapCards(i, n);
 
-        // swap the ith card and the randomly-chosen card
-
-
-    }
+        }  // end for
+    }  // end shuffle
 
     /**
      * Finds the index of the lowest card
      * between low and high inclusive.
      */
     public int indexLowest(int low, int high) {
-        return 0;
+        int lowest = low;
+
+        for (int i = low+1; i <= high; i++) {
+            //System.out.print(cards[i]);
+            if (cards[i].compareTo( cards[lowest] ) < 0) {
+                lowest = i;
+            }
+        }  // end for loop
+
+        //System.out.print("\nlowest: " + cards[lowest]);
+        return lowest;
     }
 
     /**
      * Sorts the cards (in place) using selection sort.
      */
     public void selectionSort() {
-        // find the lowest card at or to the right of i
+        int n = cards.length;
 
+        for (int i=0; i < n-1; i++) {
+            //System.out.printf("i=%d\n", i);
+            // find the lowest card at or to the right of i
+            int low = indexLowest(i, n-1);
+            // swap the ith card and the lowest card found
+            swapCards(i, low);
 
-        // swap the ith card and the lowest card found
+        }  // end for loop
 
-
-    }
+    }  // end selectionSort()
 
     /**
      * Returns a subset of the cards in the deck.
@@ -138,38 +156,69 @@ public class Deck {
         return sub;
     }
 
+
+    /** Returns the number of cards in the deck */
+    public int size() {
+        return cards.length;
+    }
+
     /**
      * Combines two previously sorted subdecks.
      */
     public static Deck merge(Deck d1, Deck d2) {
         // create a new deck big enough for all the cards
+        Deck combined = new Deck(d1.size() + d2.size());
+        int temp;
 
         // use the index i to keep track of where we are at in
         // the first deck, and the index j for the second deck
         int i = 0;
         int j = 0;
         // the index k traverses the result deck
-        for (int k = 0; k < result.cards.length; k++) {
+        for (int k = 0; k < combined.cards.length; k++) {
 
             // if d1 is empty, d2 wins
+            if (i >= d1.size()) {
+                System.out.println(d2.cards[j]);
+                combined.cards[k] = d2.cards[j];
+                j++;
+            } else if (j >= d2.size()) {  // if d2 is empty, d1 wins
+                System.out.println(d1.cards[i]);
+                combined.cards[k] = d1.cards[i];
+                i++;
+            } else {
 
-            // if d2 is empty, d1 wins
+                // otherwise, compare the two cards
+                // add the winner to the new deck at position k
+                temp = d1.cards[i].compareTo( d2.cards[j] );
+                if (temp < 0) {
+                    System.out.println(d1.cards[i]);
+                    combined.cards[k] = d1.cards[i];
+                    i++;
+                } else {
+                    System.out.println(d2.cards[j]);
+                    combined.cards[k] = d2.cards[j];
+                    j++;
+                }
+                // remember to increment either i or j
+            }
+        }  // end for loop
 
-            // otherwise, compare the two cards
-
-            // add the winner to the new deck at position k
-
-            // increment either i or j
-
-        }
         // return the new deck
-        return null;
-    }
+        return combined;
+    }  // end merge()
 
     public Deck almostMergeSort() {
         // divide the deck into two subdecks
+        Deck deck1 = subdeck(0, cards.length/2 - 1);
+        Deck deck2 = subdeck(cards.length/2, cards.length-1);
+
         // sort the subdecks using selectionSort
+        deck1.selectionSort();
+        deck2.selectionSort();
+
         // merge the two halves and return the result
+        return merge(deck1, deck2);
     }
 
     /**
@@ -184,7 +233,7 @@ public class Deck {
 
         // sort the subdecks using mergeSort
 
-        
+
         // merge the two halves and return the result
         return this;
     }

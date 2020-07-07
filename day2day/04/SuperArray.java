@@ -83,6 +83,9 @@ public class SuperArray {
 		}
 
 		numberElements--;
+		if (numberElements < data.length / 3)
+			shrink();
+
 		return removed;
 	}  // end remove()
 
@@ -102,7 +105,22 @@ public class SuperArray {
 	/** Method to increase capacity of array */
 	public void grow() {
  		// doubles capacity even for size 0
-		int[] newData = new int[2*data.length + 1];
+		int[] newData = new int[1.5*data.length + 1];
+
+		// copy over
+		for (int i=0; i < numberElements; i++){
+			newData[i] = data[i];
+		}
+
+		// switch over
+		data = newData;
+	}
+
+	/** Method to increase capacity of array */
+	public void shrink() {
+		int[] newData = new int[0];
+ 		// doubles capacity even for size 0
+		newData = new int[data.length/2];
 
 		// copy over
 		for (int i=0; i < numberElements; i++){

@@ -21,19 +21,24 @@ public class LList {
         length++;
     }
 
-    // Returns the value (not the Node) at index.
+    // Returns the Node at index.
     // If index is out of bounds, return null.
-    public String get(int index) {
+    public Node getNode(int index) {
         Node tmp = head;
         for(int i=0; i<index && tmp!=null; i++) {
             tmp = tmp.getNext();
         }
 
-        if (tmp != null)
-            return tmp.getData();
-        else
-            return null;
+        return tmp!=null ? tmp : null;
 
+    }  // end getNode()
+
+    // Returns the value (not the Node) at index.
+    // If index is out of bounds, return null.
+    public String get(int index) {
+        Node tmp = getNode(index);
+
+        return tmp!=null? tmp.getData() : null;
     }
 
     // Set the Node at index to contain value.

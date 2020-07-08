@@ -4,7 +4,7 @@ import java.util.*;
 
 public class LList {
     private Node head;
-    private length;
+    private int length;
 
     // Initializes an empty linked list
     public LList() {
@@ -23,13 +23,13 @@ public class LList {
 
     // Returns the Node at index.
     // If index is out of bounds, return null.
-    public Node getNode(int index) {
+    private Node getNode(int index) {
         Node tmp = head;
         for(int i=0; i<index && tmp!=null; i++) {
             tmp = tmp.getNext();
         }
 
-        return tmp!=null ? tmp : null;
+        return (tmp!=null ? tmp : null);
 
     }  // end getNode()
 
@@ -38,7 +38,7 @@ public class LList {
     public String get(int index) {
         Node tmp = getNode(index);
 
-        return tmp!=null? tmp.getData() : null;
+        return (tmp!=null ? tmp.getData() : null);
     }
 
     // Set the Node at index to contain value.
@@ -94,12 +94,12 @@ public class LList {
     // Insert a new Node containing value at index
     // If index is invalid, do nothing.
     public void insert(int index, String value) {
-        Node tmp;
+        Node prev;
 
         // Special case if index==0.
         // make new node, set head to new node.
         if (index==0) {
-            addFront(value);
+            addFront(value);  // length adjusted there
             return;
         }
 
@@ -107,26 +107,20 @@ public class LList {
         // If tmp == null, index is invalid. Else,
         // Make new node and point it to tmp.next.
         // Point tmp.next to new node.
-        tmp = head;
-        for(int i=0; i < index-1 && tmp!=null; i++) {
-            tmp = tmp.getNext();
-        }  // Draw detailed diagram to understand stopping conditions
-
-        if (tmp == null)
+        prev = getNode(index-1);
+        if (prev == null)
             return;
 
-        Node newNode = new Node(value, tmp.getNext());
-        tmp.setNext(newNode);
+        Node newNode = new Node(value, prev.getNext());
+        prev.setNext(newNode);
         length++;
-        return;
-
     }  // end insert()
 
     // Removes the Node at index from the list &
     // Returns the String at that node if it existed
     // If index is invalid, do nothing.
     public String remove(int index) {
-        Node tmp;
+        Node prev;
         String oldData = null;
 
         // Special case if index is 0. If head is null
@@ -146,17 +140,14 @@ public class LList {
         // If tmp == null, index is invalid. Else,
         // remove data from tmp.next if it's not null.
         // Point tmp to tmp.next.next.
-        tmp = head;
-        for(int i=0; i < index-1 && tmp!=null; i++) {
-            tmp = tmp.getNext();
-        }  // Draw detailed diagram to understand stopping conditions
-
-        if (tmp == null)
+        prev = getNode(index - 1);
+        if (prev == null)
             return null;
 
-        if (tmp.getNext() != null) {  // basically adding at end of list
-            oldData = tmp.getNext().getData();
-            tmp.setNext( tmp.getNext().getNext() );
+        Node cur = prev.getNext();
+        if (cur != null) {  // basically adding at end of list
+            oldData = cur.getData();
+            prev.setNext( cur.getNext() );
             length--;
         }
 
@@ -167,23 +158,29 @@ public class LList {
     // Returns value currently at index
     // If index is invalid, do nothing.
     public String set(int index, String value) {
-        String s = remove(index);
-        insert(index, value);
-        return s;
+        Node tmp = getNode(index - 1);
+        if (tmp==null)
+            return null;
+
+        if (index < length) {  // node already exists
+            String s = tmp.getData();
+            tmp.setData(value);
+            return s;
+        }
+        // node didn't exist
+        tmp.setNext( new Node(value) );
+        return null;
     }
 
     // Returns the index of the first time key occurs in the list.
     // Returns -1 if key is not found.
     public int search(String key) {
-        int index = 0;
         Node tmp = head;
-
-        while (tmp != null) {
-            if (tmp.getData() == key)
-                return index;
+        for (int i=0; tmp!=null; i++) {
+            if ( tmp.getData().equals(key) )
+                return i;
 
             tmp = tmp.getNext();
-            index++;
         }
 
         return -1;
@@ -216,6 +213,10 @@ public class LList {
 
         s = "<" + s + ">";
         return s;
+    }
+
+    public int length() {
+        return length;
     }
 
 }

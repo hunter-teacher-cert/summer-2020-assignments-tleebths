@@ -39,7 +39,7 @@ public class LList {
     // Set the Node at index to contain value.
     // Returns value currently at index
     // If index is invalid, do nothing.
-    public String set(int index, String value) {
+    public String set0(int index, String value) {
         Node tmp;
         String oldData = null;
 
@@ -113,6 +113,85 @@ public class LList {
         return;
 
     }  // end insert()
+
+    // Removes the Node at index from the list &
+    // Returns the String at that node if it existed
+    // If index is invalid, do nothing.
+    public String remove(int index) {
+        Node tmp;
+        String oldData = null;
+
+        // Special case if index is 0. If head is null
+        // return null. Otherwise, get the node's data
+        // then point head to node's next.
+        if (index == 0) {
+            if (head != null) {
+                oldData = head.getData();
+                head = head.getNext();
+            }
+
+            return oldData;
+        }  // end special case
+
+        // Strategy: Traverse LList up to index - 1.
+        // If tmp == null, index is invalid. Else,
+        // remove data from tmp.next if it's not null.
+        // Point tmp to tmp.next.next.
+        tmp = head;
+        for(int i=0; i < index-1 && tmp!=null; i++) {
+            tmp = tmp.getNext();
+        }  // Draw detailed diagram to understand stopping conditions
+
+        if (tmp == null)
+            return null;
+
+        if (tmp.getNext() != null) {  // basically adding at end of list
+            oldData = tmp.getNext().getData();
+            tmp.setNext( tmp.getNext().getNext() );
+        }
+
+        return oldData;
+    }  // end remove()
+
+    // Set the Node at index to contain value.
+    // Returns value currently at index
+    // If index is invalid, do nothing.
+    public String set(int index, String value) {
+        String s = remove(index);
+        insert(index, value);
+        return s;
+    }
+
+    // Returns the index of the first time key occurs in the list.
+    // Returns -1 if key is not found.
+    public int search(String key) {
+        int index = 0;
+        Node tmp = head;
+
+        while (tmp != null) {
+            if (tmp.getData() == key)
+                return index;
+
+            tmp = tmp.getNext();
+            index++;
+        }
+
+        return -1;
+    }
+
+
+    // Returns size of the linked list
+    public int size() {
+        int count = 0;
+        Node tmp = head;
+
+        while (tmp != null) {
+            count++;
+            tmp = tmp.getNext();
+        }
+
+        return count;
+    }
 
     // Returns true if the list is empty, false otherwise
     public boolean isEmpty() {

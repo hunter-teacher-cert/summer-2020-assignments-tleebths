@@ -27,6 +27,16 @@ public class Driver{
         l.insert(100, "Ddub");
         System.out.println(l);
 
+        l.remove(0);
+        l.remove(1);
+        l.remove(l.size());
+        l.remove(l.size() - 1);
+        System.out.println(l);
+
+        System.out.println(l.search("Tsee"));
+        System.out.println(l.search("Z"));
+
+
         /** testing get()
         System.out.printf("Should be Gummo: %s\n", l.get(0));
         System.out.printf("Should be Chico: %s\n", l.get(2));

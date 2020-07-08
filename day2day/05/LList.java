@@ -4,10 +4,12 @@ import java.util.*;
 
 public class LList {
     private Node head;
+    private length;
 
     // Initializes an empty linked list
     public LList() {
         head = null;
+        length = 0;  // must update with any addition/deletion
     }
 
     // Adds a new Node containing value to the front of the list
@@ -16,6 +18,7 @@ public class LList {
         Node newNode = new Node(data, head);
         // point head to the new node
         head = newNode;
+        length++;
     }
 
     // Returns the value (not the Node) at index.
@@ -48,6 +51,7 @@ public class LList {
             if (head == null) {
                 tmp = new Node(value, head);
                 head = tmp;
+                length++;
             } else {  // Node already exists
                 oldData = head.getData();
                 head.setData(value);
@@ -72,6 +76,7 @@ public class LList {
         if (tmp.getNext() == null) {  // basically adding at end of list
             Node newNode = new Node(value);
             tmp.setNext(newNode);
+            length++;
             return null;
         }
 
@@ -107,6 +112,7 @@ public class LList {
 
         Node newNode = new Node(value, tmp.getNext());
         tmp.setNext(newNode);
+        length++;
         return;
 
     }  // end insert()
@@ -125,6 +131,7 @@ public class LList {
             if (head != null) {
                 oldData = head.getData();
                 head = head.getNext();
+                length--;
             }
 
             return oldData;
@@ -145,6 +152,7 @@ public class LList {
         if (tmp.getNext() != null) {  // basically adding at end of list
             oldData = tmp.getNext().getData();
             tmp.setNext( tmp.getNext().getNext() );
+            length--;
         }
 
         return oldData;
@@ -176,19 +184,6 @@ public class LList {
         return -1;
     }
 
-
-    // Returns size of the linked list
-    public int size() {
-        int count = 0;
-        Node tmp = head;
-
-        while (tmp != null) {
-            count++;
-            tmp = tmp.getNext();
-        }
-
-        return count;
-    }
 
     // Returns true if the list is empty, false otherwise
     public boolean isEmpty() {

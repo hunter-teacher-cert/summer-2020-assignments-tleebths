@@ -17,20 +17,20 @@ public class Driver{
 
         l.set(0, "Tsee");
         System.out.println(l.set(1, "tofr"));
-        l.set(3, "Z");
+        l.set(l.length, "Z");
         l.set(100,"Ddub");
         System.out.println(l);
 
         l.insert(0, "Margie");
         l.insert(1, "Jessica");
-        l.insert(6, "Lisa");
+        l.insert(l.length, "Lisa");
         l.insert(100, "Ddub");
         System.out.println(l);
 
         l.remove(0);
         l.remove(1);
-        l.remove(l.size());
-        l.remove(l.size() - 1);
+        l.remove(l.length);
+        l.remove(l.length - 1);
         System.out.println(l);
 
         System.out.println(l.search("Tsee"));

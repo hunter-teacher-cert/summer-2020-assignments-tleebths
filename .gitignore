@@ -6,6 +6,7 @@
 #pixLab image files, except mine
 *.jpg
 !bee*.jpg
+Thumbs.db
 
 # Log file
 *.log

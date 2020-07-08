@@ -158,24 +158,31 @@ public class LList {
     // Returns value currently at index
     // If index is invalid, do nothing.
     public String set(int index, String value) {
-        Node tmp = getNode(index - 1);
-        if (tmp==null)
-            return null;
+        String s = null;  // return value
 
-        if (index < length) {  // node already exists
-            String s = tmp.getData();
-			if (value.equals("Tsee"))
-				System.out.println(tmp.getData() + " " + index + " " + length);
-
-            tmp.setData(value);
-			if (value.equals("Tsee"))
-				System.out.println(tmp.getData() + " " + index + " " + length);
-
+        if (index==0) {
+            s = remove(0);
+            addFront(value);
             return s;
         }
-        // node didn't exist
-        tmp.setNext( new Node(value) );
-        return null;
+
+        Node prev = getNode(index-1);  // To point to node before index
+        if (prev==null)  // invalid index
+            return s;
+
+        if (index < length) {  // node already exists
+            Node cur = prev.getNext();
+            s = cur.getData();
+            cur.setData(value);
+
+			// if (value.equals("tofr"))
+			// 	System.out.println(cur.getData() + " " + index + " " + length);
+            return s;
+        }
+
+        prev.setNext( new Node(value) );  // node didn't exist
+        length++;
+        return s;
     }
 
     // Returns the index of the first time key occurs in the list.

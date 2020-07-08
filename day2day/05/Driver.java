@@ -13,10 +13,11 @@ public class Driver{
         l.addFront("Curly");
         // System.out.println(l);
         l.addFront("Larry");
-        // System.out.println(l);
+        System.out.println(l);
 
         l.set(0, "Tsee");
         System.out.println(l.set(1, "tofr"));
+		System.out.println(l);
         l.set(l.length(), "Z");
         l.set(100,"Ddub");
         System.out.println(l);

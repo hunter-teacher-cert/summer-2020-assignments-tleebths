@@ -164,7 +164,13 @@ public class LList {
 
         if (index < length) {  // node already exists
             String s = tmp.getData();
+			if (value.equals("Tsee"))
+				System.out.println(tmp.getData() + " " + index + " " + length);
+
             tmp.setData(value);
+			if (value.equals("Tsee"))
+				System.out.println(tmp.getData() + " " + index + " " + length);
+
             return s;
         }
         // node didn't exist

@@ -8,11 +8,11 @@ public class Driver{
         LList l = new LList();
         //System.out.println("should be true, isEmpty(): " + l.isEmpty());
 
-        l.add("Coitenly");
+        l.addFront("Coitenly");
         //System.out.println(l);
-        l.add("Curly");
+        l.addFront("Curly");
         // System.out.println(l);
-        l.add("Larry");
+        l.addFront("Larry");
         // System.out.println(l);
 
         l.set(0, "Tsee");

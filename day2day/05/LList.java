@@ -11,12 +11,9 @@ public class LList {
     }
 
     // Adds a new Node containing value to the front of the list
-    public void add(String data){
-        Node newNode = new Node(data);
-
+    public void addFront(String data){
         // first point the new node to the beginning
-        newNode.setNext(head);
-
+        Node newNode = new Node(data, head);
         // point head to the new node
         head = newNode;
     }
@@ -39,6 +36,7 @@ public class LList {
     // Set the Node at index to contain value.
     // Returns value currently at index
     // If index is invalid, do nothing.
+    // There's a much shorter version, slightly less efficient
     public String set0(int index, String value) {
         Node tmp;
         String oldData = null;
@@ -91,8 +89,7 @@ public class LList {
         // Special case if index==0.
         // make new node, set head to new node.
         if (index==0) {
-            tmp = new Node(value, head);
-            head = tmp;
+            addFront(value);
             return;
         }
 
@@ -201,11 +198,15 @@ public class LList {
     // Returns a String representation of the list
     public String toString(){
         String s = "";
+        Node tmp = head;
 
-        Node tmp;
-        tmp = head;
+        // avoids space at the end
+        if (tmp != null) {
+            s = tmp.getData();
+            tmp = tmp.getNext();
+        }
         while (tmp != null){
-            s = s + tmp.getData()+"-->";
+            s += " " + tmp.getData();
             // how can we now move tmp to the next node
             // this is the magic linked list idiom!!!!
             // this moves a pointer to the next node!!!
@@ -213,7 +214,7 @@ public class LList {
             tmp = tmp.getNext();
         }
 
-        s = s + "null";
+        s = "<" + s + ">";
         return s;
     }
 

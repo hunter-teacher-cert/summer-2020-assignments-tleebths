@@ -13,7 +13,6 @@ public class LList {
         head = new Node("I'm a dummy, dummy.");
         head.setNext(head);
         length = 0;  // must update with any addition/deletion
-        System.out.println("Done init LList");
     }
 
     // Returns the Node at index.
@@ -28,7 +27,7 @@ public class LList {
         }
 
         // System.out.printf("getNode(): index=%d, data=%s\n", index, tmp.getData());
-        return (tmp!=head ? tmp : head);
+        return tmp;
     }  // end getNode()
 
     // Returns the value (not the Node) at index.

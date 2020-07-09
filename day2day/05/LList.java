@@ -41,56 +41,6 @@ public class LList {
         return (tmp!=null ? tmp.getData() : null);
     }
 
-    // Set the Node at index to contain value.
-    // Returns value currently at index
-    // If index is invalid, do nothing.
-    // There's a much shorter version, slightly less efficient
-    public String set0(int index, String value) {
-        Node tmp;
-        String oldData = null;
-
-        // Special case if index is 0. If head is null
-        // make new Node(value, head). Otherwise,
-        // Set head to new node. .
-        if (index==0) {
-            if (head == null) {
-                tmp = new Node(value, head);
-                head = tmp;
-                length++;
-            } else {  // Node already exists
-                oldData = head.getData();
-                head.setData(value);
-            }
-
-            return oldData;
-        }  // end special case
-
-        // Strategy: Traverse LList up to index - 1.
-        // If tmp == null, index is invalid. Else,
-        // If tmp.next is NOT null, set its data to value.
-        // Else, make new node and point it to what comes
-        // AFTER tmp.next, then point tmp to new node.
-        tmp = head;
-        for(int i=0; i < index-1 && tmp!=null; i++) {
-            tmp = tmp.getNext();
-        }  // Draw detailed diagram to understand stopping conditions
-
-        if (tmp == null)
-            return null;
-
-        if (tmp.getNext() == null) {  // basically adding at end of list
-            Node newNode = new Node(value);
-            tmp.setNext(newNode);
-            length++;
-            return null;
-        }
-
-        oldData = tmp.getNext().getData();
-        tmp.getNext().setData(value);
-        return oldData;
-
-    }  // end set()
-
     // Insert a new Node containing value at index
     // If index is invalid, do nothing.
     public void insert(int index, String value) {

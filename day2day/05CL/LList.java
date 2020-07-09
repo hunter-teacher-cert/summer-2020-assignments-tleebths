@@ -121,8 +121,7 @@ public class LList {
             return;
 
         Node cur = prev.getNext();
-        if (cur != null) {
-            oldData = cur.getData();
+        if (cur != head) {
             prev.setNext( cur.getNext() );
             length--;
         }

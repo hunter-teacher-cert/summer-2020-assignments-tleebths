@@ -17,6 +17,7 @@ public class Driver{
         l.addFront("Larry");
         System.out.println("LCC: " + l);
         // System.out.println("get(0): " + l.get(0));
+        System.out.println("get(100): " + l.get(0));
 
         l.set(0, "Tsee");
         System.out.println("set at 0: " + l);
@@ -31,16 +32,16 @@ public class Driver{
         l.insert(1, "Jessica");
         l.insert(l.length(), "Lisa");
         l.insert(100, "Ddub");
-        System.out.println(l.length() + l.toString());
+        System.out.println("len=" + l.length() + " " + l.toString());
 
         l.remove(0);
-        System.out.println(l);
+        System.out.println("rm 0: " + l);
         l.remove(1);
-        System.out.println(l);
+        System.out.println("rm 1: " + l);
         l.remove(l.length());
-        System.out.println(l);
+        System.out.println("rm past last: " + l);
         l.remove(l.length() - 1);
-        System.out.println(l);
+        System.out.println("rm last: " + l);
 /*
         System.out.println(l.search("Tsee"));
         System.out.println(l.search("Z"));

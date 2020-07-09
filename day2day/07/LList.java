@@ -35,7 +35,7 @@ public class LList {
             prev = prev.getNext();  // skip updating cur for now
 
             if (prev == head) {  // circled back
-                throw new IndexOutOfBoundsException("index %d too big", index);
+                throw new IndexOutOfBoundsException("index too big: " + index);
             }
 
         }
@@ -76,7 +76,7 @@ public class LList {
         getNode(index);
 
         if (prev == null)  // invalid index
-            throw new IndexOutOfBoundsException("index %d", index);
+            throw new IndexOutOfBoundsException("invalid: " + index);
 
         if (cur != null) {
             cur.setData(value);  // just a normal node
@@ -97,7 +97,7 @@ public class LList {
 
         // inserting at 0 is same as adding in front
         if (prev == null)
-            throw new IndexOutOfBoundsException("index %d", index);
+            throw new IndexOutOfBoundsException("invalid: " + index);
 
         cur = new Node(value, prev, prev.getNext());
         prev.getNext().setPrev(cur);
@@ -111,7 +111,7 @@ public class LList {
         getNode(index);
 
         if (cur == null)
-            throw new IndexOutOfBoundsException("index %d", index);
+            throw new IndexOutOfBoundsException("invalid: " + index);
 
         cur = cur.getNext();  // skips over
         prev.setNext(cur);
@@ -132,7 +132,7 @@ public class LList {
             i++;
         }
 
-        throw new NoSuchElementException("%s not found", key);
+        throw new NoSuchElementException(key + " not found");
     }
 
 

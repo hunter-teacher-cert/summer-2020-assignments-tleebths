@@ -60,6 +60,11 @@ public class LList {
 
     // Adds a new Node containing value to the front of the list
     public void addFront(String data){
+		if (data==null) {
+			IllegalArgumentException e = new IllegalArgumentException();
+			throw e;
+		}
+
         // first new node points to what head points to
         Node newNode = new Node(data, head, head.getNext());
         // head will link to the new node

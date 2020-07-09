@@ -9,6 +9,8 @@ public class Driver{
         System.out.println("should be true, isEmpty(): " + l + " " + l.isEmpty());
         System.out.println("get(0) should be null: " + l.get(0));
         System.out.println("search(\"Tsee\") should be -1: " + l.search("Tsee"));
+		
+		l.addFront(null);
 
         l.addFront("Coitenly");
         //System.out.println(l);

@@ -25,7 +25,7 @@ public class LList {
     // cur will be null if prev is valid (eg. at empty or end of list).
     private void getNode(int index) {
         if (index < 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("negative index");
         }
 
         prev = head;
@@ -35,7 +35,7 @@ public class LList {
             prev = prev.getNext();  // skip updating cur for now
 
             if (prev == head) {  // circled back
-                throw new IndexOutOfBoundsException();
+                throw new IndexOutOfBoundsException("index %d too big", index);
             }
 
         }
@@ -76,7 +76,7 @@ public class LList {
         getNode(index);
 
         if (prev == null)  // invalid index
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("index %d", index);
 
         if (cur != null) {
             cur.setData(value);  // just a normal node
@@ -97,7 +97,7 @@ public class LList {
 
         // inserting at 0 is same as adding in front
         if (prev == null)
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("index %d", index);
 
         cur = new Node(value, prev, prev.getNext());
         prev.getNext().setPrev(cur);
@@ -111,7 +111,7 @@ public class LList {
         getNode(index);
 
         if (cur == null)
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("index %d", index);
 
         cur = cur.getNext();  // skips over
         prev.setNext(cur);
@@ -132,7 +132,7 @@ public class LList {
             i++;
         }
 
-        throw new NoSuchElementException();
+        throw new NoSuchElementException("%s not found", key);
     }
 
 
@@ -150,21 +150,6 @@ public class LList {
         }
 
         s += ">";
-/* original
-       // avoids space at the end
-        if (tmp != null) {
-            s = tmp.getData();
-            tmp = tmp.getNext();
-        }
-        while (tmp != null){
-            s += " " + tmp.getData();
-            // how can we now move tmp to the next node
-            // this is the magic linked list idiom!!!!
-            // this moves a pointer to the next node!!!
-            // It's analagous to i=i+1 for an array (for loop)
-            tmp = tmp.getNext();
-        }
-*/
         return s;
     }
 

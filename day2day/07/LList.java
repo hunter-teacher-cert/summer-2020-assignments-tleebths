@@ -73,6 +73,10 @@ public class LList {
     // Set the Node at index to contain value.
     // If index is invalid, do nothing.
     public void set(int index, String value) {
+		if (value==null) {
+			throw new IllegalArgumentException("null passed for name");
+		}
+
         getNode(index);
 
         if (prev == null)  // invalid index
@@ -93,6 +97,10 @@ public class LList {
     // Insert a new Node containing value at index
     // If index is invalid, do nothing.
     public void insert(int index, String value) {
+		if (value==null) {
+			throw new IllegalArgumentException("null passed for name");
+		}
+
         getNode(index);
 
         // inserting at 0 is same as adding in front
@@ -123,6 +131,10 @@ public class LList {
     // Returns the index of the first time key occurs in the list.
     // Returns -1 if key is not found.
     public int search(String key) {
+		if (key==null) {
+			throw new IllegalArgumentException("null passed for name");
+		}
+
         int i=0;
 
         for (cur = head.getNext(); cur != head; cur = cur.getNext()) {

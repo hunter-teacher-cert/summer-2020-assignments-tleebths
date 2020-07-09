@@ -155,7 +155,7 @@ public class Deck {
         // preceding Cards are smaller.
         for (int i=1; i<cards.length; i++) {
             Card saved = cards[i];
-            for (int j=i-1; j>0 && saved.compareTo(cards[j]) < 0; j--){
+            for (int j=i-1; j>=0 && saved.compareTo(cards[j]) < 0; j--){
                 swapCards(j, j+1);
             }
         }

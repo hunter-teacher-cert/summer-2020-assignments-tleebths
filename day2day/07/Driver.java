@@ -8,9 +8,17 @@ public class Driver{
         LList l = new LList();
         System.out.println("should be true, isEmpty(): " + l + " " + l.isEmpty());
         System.out.println("get(0) should be null: " + l.get(0));
-        System.out.println("search(\"Tsee\") should be -1: " + l.search("Tsee"));
-		
-		l.addFront(null);
+        try {
+            System.out.println("search(\"Tsee\") should be -1: " + l.search("Tsee"));
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+        }
+
+        try {
+            l.addFront(null);
+        } catch(IllegalArgumentException e) {
+            System.out.println(e);
+        }
 
         l.addFront("Coitenly");
         //System.out.println(l);
@@ -18,7 +26,11 @@ public class Driver{
         // System.out.println(l);
         l.addFront("Larry");
         System.out.println("LCC: " + l);
-        System.out.println("get(100): " + l.get(100));
+        try {
+            System.out.println("get(100): " + l.get(100));
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println(e);
+        }
 
         l.set(0, "Tsee");
         System.out.println("set at 0: " + l);
@@ -27,21 +39,21 @@ public class Driver{
         System.out.print("len = " + l.length() + " " + "get(l.len): " + l.get(l.length()));
         l.set(l.length(), "Z");
         System.out.println("set at end: " + l);
-        l.set(100,"Ddub");
-        System.out.println("set at invalid: " + l);
+        // l.set(100,"Ddub");
+        // System.out.println("set at invalid: " + l);
 
         l.insert(0, "Margie");
         l.insert(1, "Jessica");
         l.insert(l.length(), "Lisa");
-        l.insert(100, "Ddub");
+        // l.insert(100, "Ddub");
         System.out.println("len=" + l.length() + " " + l.toString());
 
         l.remove(0);
         System.out.println("rm 0: " + l);
         l.remove(1);
         System.out.println("rm 1: " + l);
-        l.remove(l.length());
-        System.out.println("rm past last: " + l);
+        // l.remove(l.length());
+        // System.out.println("rm past last: " + l);
         l.remove(l.length() - 1);
         System.out.println("rm last: " + l);
 /*

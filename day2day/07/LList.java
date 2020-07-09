@@ -25,8 +25,7 @@ public class LList {
     // cur will be null if prev is valid (eg. at empty or end of list).
     private void getNode(int index) {
         if (index < 0) {
-            prev = cur = null;
-            return;
+            throw new IndexOutOfBoundsException();
         }
 
         prev = head;
@@ -36,8 +35,7 @@ public class LList {
             prev = prev.getNext();  // skip updating cur for now
 
             if (prev == head) {  // circled back
-                prev = cur = null;
-                return;
+                throw new IndexOutOfBoundsException();
             }
 
         }
@@ -61,8 +59,7 @@ public class LList {
     // Adds a new Node containing value to the front of the list
     public void addFront(String data){
 		if (data==null) {
-			IllegalArgumentException e = new IllegalArgumentException();
-			throw e;
+			throw new IllegalArgumentException("null passed for name");
 		}
 
         // first new node points to what head points to
@@ -79,7 +76,7 @@ public class LList {
         getNode(index);
 
         if (prev == null)  // invalid index
-            return;
+            throw new IndexOutOfBoundsException();
 
         if (cur != null) {
             cur.setData(value);  // just a normal node
@@ -100,7 +97,7 @@ public class LList {
 
         // inserting at 0 is same as adding in front
         if (prev == null)
-            return;
+            throw new IndexOutOfBoundsException();
 
         cur = new Node(value, prev, prev.getNext());
         prev.getNext().setPrev(cur);
@@ -114,7 +111,7 @@ public class LList {
         getNode(index);
 
         if (cur == null)
-            return;
+            throw new IndexOutOfBoundsException();
 
         cur = cur.getNext();  // skips over
         prev.setNext(cur);
@@ -135,7 +132,7 @@ public class LList {
             i++;
         }
 
-        return -1;
+        throw new NoSuchElementException();
     }
 
 

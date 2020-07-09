@@ -21,26 +21,41 @@ public class LListDriver {
         System.out.println("\nTest get 0, 1, 5:");
         System.out.println(g.get(0));
         System.out.println(g.get(1));
-        System.out.println(g.get(5));
-
+        try {
+            System.out.println(g.get(5));
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println(e);
+        }
 
         System.out.println("\nTest set 0, 1, 5:");
         g.set(0, "me!");
         g.set(1, "job");
-        g.set(5, "wow");
+        try {
+            g.set(5, "wow");
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println(e);
+        }
         System.out.println(g);
 
         System.out.println("\nTest insert 0, 2, 5, 10:");
         g.insert(0, "woo!");
         g.insert(2, "go");
         g.insert(5, "cool");
-        g.insert(10, "too far");
+        try {
+            g.insert(10, "too far");
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println(e);
+        }
         System.out.println(g);
 
         System.out.println("\nTest search \"woo!\", \"cool\", \"too far\"");
         System.out.println(g.search("woo!"));
         System.out.println(g.search("cool"));
-        System.out.println(g.search("too far"));
+        try {
+            System.out.println(g.search("too far"));
+        } catch(NoSuchElementException e) {
+            System.out.println(e);
+        }
 
         System.out.println("\nTest remove 0, 2:");
         g.remove(0);

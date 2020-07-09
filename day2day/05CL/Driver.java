@@ -26,7 +26,7 @@ public class Driver{
         System.out.println("set at end: " + l);
         l.set(100,"Ddub");
         System.out.println("set at invalid: " + l);
-/*
+
         l.insert(0, "Margie");
         l.insert(1, "Jessica");
         l.insert(l.length(), "Lisa");
@@ -41,7 +41,7 @@ public class Driver{
         System.out.println(l);
         l.remove(l.length() - 1);
         System.out.println(l);
-
+/*
         System.out.println(l.search("Tsee"));
         System.out.println(l.search("Z"));
 */

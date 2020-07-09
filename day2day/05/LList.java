@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-// Single-linked list
+
 public class LList {
     private Node head;
     private int length;

@@ -95,7 +95,7 @@ public class LList {
             return null;
 
         Node cur = prev.getNext();
-        if (cur != null) {  // basically adding at end of list
+        if (cur != null) {
             oldData = cur.getData();
             prev.setNext( cur.getNext() );
             length--;

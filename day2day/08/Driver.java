@@ -9,10 +9,10 @@ public class Driver {
         System.out.println("Printing empty stack:\n" + s);
         System.out.printf("isEmpty() should be true: %b. Top=\n", s, s.isEmpty(), s.top());
 
+        s.push("Dominion of Canada");
         s.push("Z");
         s.push("tofr");
         s.push("dDub");
-        //s.push("Dominion of Canada");
         System.out.println("Printing stack ZtdD:\n" + s);
         System.out.printf("size %d: Top=%s\n", s.size(), s.top());
 

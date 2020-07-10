@@ -49,44 +49,52 @@ public class MyStack {
 
     // Returns a String representation of the stack
     public String toString(){
-        return toString(head, 6)[1];  // arbitary length 6 in case stack's empty
+        return toString(head, 4)[1];  // arbitary len=4 in case stack's empty
     }
 
-    /* Helper method returns array [s1, s1] when given a LList of Nodes
+    /* Helper method returns String array when given a LList of Nodes
      * e.g. ["6","   Tsee    \n     Lee    \n|______|"]
-     * s1 is String representation of length of longest data
+     * @param cur Start of the Node to convert to toString
+     * @param maxLen = longest of data from the top to current level
+     * @return String array [s1, s2], such that:
+     * s1 is the length of longest data so far, as a String
      * s2 is the toString() of the lower levels of the stack
      */
     private String[] toString(Node cur, int maxLen) {
-        String curStr;
+        String curStr = "";
 
+        // Base case: empty stack. Print as many _ with padding
         if (cur == null) {
-             curStr = "|";
-            for (int i=0; i<maxLen; i++) {
+            for (int i=0; i < maxLen+2; i++) {
                 curStr += "_";
             }
-
-            return new String[]{"6", curStr + "|"};
-        }
-        else {
-            curStr = cur.getData();
-            int curLen = curStr.length();
-            maxLen = (maxLen<curLen ? curLen : maxLen);
-
-            String[] lower = toString(cur.getNext(), maxLen);  // do lower levels first
-            int lowerLen = Integer.parseInt(lower[0]);
-            String lowerStr = lower[1];
-            maxLen = (maxLen<lowerLen ? lowerLen : maxLen);
-
-            String spaces = "";
-            for (int i=0; i < (maxLen-curLen)/2 + 1 ; i++) {
-                spaces += " ";
-            }
-
-            curStr = spaces + curStr + spaces + "\n" + lowerStr;
+            curStr = "|" + curStr + "|";
 
             return new String[]{String.valueOf(maxLen), curStr};
         }
-    }
+
+        // recursive case
+        // get current node's data, update maxLen if nec.
+        curStr = cur.getData();
+        int curLen = curStr.length();
+        maxLen = (maxLen<curLen ? curLen : maxLen);
+
+        // do lower levels first and update maxLen again
+        String[] lower = toString(cur.getNext(), maxLen);
+        int lowerLen = Integer.parseInt(lower[0]);
+        String lowerStr = lower[1];
+        maxLen = (maxLen<lowerLen ? lowerLen : maxLen);
+
+        // figure out padding front and back, incl. "|" & " "
+        String spaces = "";
+        for (int i=0; i < (maxLen-curLen)/2 + 2 ; i++) {
+            spaces += " ";
+        }
+
+        // put it all together
+        curStr = spaces + curStr + spaces + "\n" + lowerStr;
+
+        return new String[]{String.valueOf(maxLen), curStr};
+    }  // end toString(N,i)
 
 }  // end class

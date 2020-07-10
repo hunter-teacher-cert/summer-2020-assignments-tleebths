@@ -2,12 +2,12 @@ import java.io.*;
 import java.util.*;
 
 
-public class LList {
+public class MyStack {
     private Node head;
     private int length;
 
     // Initializes an empty linked list
-    public LList() {
+    public MyStack() {
         head = null;
         length = 0;  // must update with any addition/deletion
     }

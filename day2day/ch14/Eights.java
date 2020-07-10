@@ -22,7 +22,7 @@ public class Eights {
 
         // deal cards to each player
         int handSize = 5;
-        one = new Player("Allen");
+        one = new SmartPlayer("Allen");
         deck.deal(one.getHand(), handSize);
 
         two = new Player("Chris");
@@ -142,4 +142,4 @@ public class Eights {
         game.playGame();
     }
 
-}
+}  // end class

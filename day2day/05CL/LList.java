@@ -47,24 +47,6 @@ public class LList {
         length++;
     }
 
-    // This versioon CANNOT set index right after last data Node.
-    // Set the Node at index to contain value.
-    // If index is invalid, do nothing.
-    public void setSimple(int index, String value) {
-        Node prev = getNode(index - 1);
-        Node cur = prev.getNext();
-
-        if (prev == head)  // invalid index
-            return;
-
-        if (cur == head) {  // inserting at the end
-            cur = new Node(value, head);
-            prev.setNext(cur);
-        }
-
-        cur.setData(value);  // just a normal node
-    }  // end setSimple()
-
     // Set the Node at index to contain value.
     // If index is right after last data Node, make new node.
     // If index is invalid, do nothing.
@@ -157,21 +139,6 @@ public class LList {
         }
 
         s += ">";
-/* original
-       // avoids space at the end
-        if (tmp != null) {
-            s = tmp.getData();
-            tmp = tmp.getNext();
-        }
-        while (tmp != null){
-            s += " " + tmp.getData();
-            // how can we now move tmp to the next node
-            // this is the magic linked list idiom!!!!
-            // this moves a pointer to the next node!!!
-            // It's analagous to i=i+1 for an array (for loop)
-            tmp = tmp.getNext();
-        }
-*/
         return s;
     }
 

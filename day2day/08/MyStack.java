@@ -5,7 +5,6 @@ import java.util.*;
 public class MyStack {
     private Node head;
     private int length;  // must update if push/pop
-    private int maxLen;
 
     // Initializes an empty stack
     public MyStack() {
@@ -35,7 +34,7 @@ public class MyStack {
 
     // return but don't remove the item from the top of the stack
     public String top() {
-        return ( head==null ? null : head.getData() );
+        return (head==null ? null : head.getData());
     }
 
     // Returns true if the stack is empty, false otherwise
@@ -50,16 +49,44 @@ public class MyStack {
 
     // Returns a String representation of the stack
     public String toString(){
-        return toString(head);
+        return toString(head, 6)[1];  // arbitary length 6 in case stack's empty
     }
 
-    // helper method when given a reference to a LList of Nodes
-    // To be cute &
-    private String toString(Node cur) {
-        if (cur == null)
-            return "|__________|";
-        else
-            return "|_" + "\n" + toString(cur.getNext());
+    /* Helper method returns array [s1, s1] when given a LList of Nodes
+     * e.g. ["6","   Tsee    \n     Lee    \n|______|"]
+     * s1 is String representation of length of longest data
+     * s2 is the toString() of the lower levels of the stack
+     */
+    private String[] toString(Node cur, int maxLen) {
+        String curStr;
+
+        if (cur == null) {
+             curStr = "|";
+            for (int i=0; i<maxLen; i++) {
+                curStr += "_";
+            }
+
+            return new String[]{"6", curStr + "|"};
+        }
+        else {
+            curStr = cur.getData();
+            int curLen = curStr.length();
+            maxLen = (maxLen<curLen ? curLen : maxLen);
+
+            String[] lower = toString(cur.getNext(), maxLen);  // do lower levels first
+            int lowerLen = Integer.parseInt(lower[0]);
+            String lowerStr = lower[1];
+            maxLen = (maxLen<lowerLen ? lowerLen : maxLen);
+
+            String spaces = "";
+            for (int i=0; i < (maxLen-curLen)/2 + 1 ; i++) {
+                spaces += " ";
+            }
+
+            curStr = spaces + curStr + spaces + "\n" + lowerStr;
+
+            return new String[]{String.valueOf(maxLen), curStr};
+        }
     }
 
 }  // end class

@@ -81,7 +81,7 @@ public class CardTable extends Canvas {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // add the CardTable
-        String cardset = "cardset-oxymoron";
+        String cardset = "cardset";
         Canvas canvas = new CardTable(cardset);
         frame.getContentPane().add(canvas);
 

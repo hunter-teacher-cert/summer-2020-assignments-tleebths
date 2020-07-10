@@ -5,41 +5,20 @@ import java.util.*;
 public class Driver{
     public static void main(String[] args) {
 
-        LList l = new LList();
-        //System.out.println("should be true, isEmpty(): " + l.isEmpty());
+        MyStack s = new MyStack();
+        System.out.println("Printing stack:\n" + s);
+        System.out.printf("isEmpty() should be true: %b. Top=\n", s, s.isEmpty(), s.top());
 
-        l.addFront("Coitenly");
-        //System.out.println(l);
-        l.addFront("Curly");
-        // System.out.println(l);
-        l.addFront("Larry");
-        System.out.println("LCC: " + l);
+        s.push("Z");
+        s.push("tofr");
+        s.push("dDub");
+        System.out.printf("Ztd, size %d: Top=%s\n", s.size(), s.top());
+        System.out.println("Printing stack:\n" + s);
 
-        l.set(0, "Tsee");
-        //System.out.println("set at 0: " + l);
-        System.out.println(l.set(1, "tofr"));
-		//System.out.println("set at 1: " + l);
-        l.set(l.length(), "Z");
-        l.set(100,"Ddub");
-        System.out.println(l);
-
-        l.insert(0, "Margie");
-        l.insert(1, "Jessica");
-        l.insert(l.length(), "Lisa");
-        l.insert(100, "Ddub");
-        System.out.println(l.length() + l.toString());
-
-        l.remove(0);
-        System.out.println(l);
-        l.remove(1);
-        System.out.println(l);
-        l.remove(l.length());
-        System.out.println(l);
-        l.remove(l.length() - 1);
-        System.out.println(l);
-
-        System.out.println(l.search("Tsee"));
-        System.out.println(l.search("Z"));
+        System.out.println("pop: " + s.pop());
+        System.out.println("pop: " + s.pop());
+        System.out.println("pop: " + s.pop());
+        System.out.println("pop: " + s.pop());
 
 
         /** testing get()

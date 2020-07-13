@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class WordDriver {
+public class WordsDriver {
     public static void main(String[] args) {
         // System.out.println(Words.reverse("ZtofrdDub"));
         // System.out.println(Words.reverse("ABBA"));
@@ -25,5 +25,7 @@ public class WordDriver {
         System.out.println("F: " + Words.isPalindromeByWord("make it so"));
         System.out.println("T: " + Words.isPalindromeByWord("I am what am I"));
         System.out.println("T: " + Words.isPalindromeByWord("bye bye"));
+
+    }  // end main()
 
 }  // end class

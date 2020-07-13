@@ -9,10 +9,8 @@ public class Words {
 		if (s==null)
 			return null;
 
-		// Cut sentence into array of Strings
-		// push array into stack
+		// Cut sentence into stack of Strings
 		Stack<String> ws = str2stk(s);
-		// System.out.println(ws);
 
 		String rev = ws.pop();
 		while (!ws.empty()) {
@@ -53,7 +51,6 @@ public class Words {
 		// At halfway point, start popping.
 		// Check if each char is the same as the rest of String
 		Stack<String> ss1 = str2stk(s);
-		System.out.println(ss1);
 
 		int len = ss1.size();
 		int half = len/2;  // will ignore middle if len is odd
@@ -90,7 +87,7 @@ public class Words {
 		}
 
 		String rev = "";
-		for(i=0; i<s.length(); i++) {
+		while (!cs.empty()) {
 			rev += cs.pop();
 		}
 
@@ -140,30 +137,21 @@ public class Words {
 		int len = s.length();
 
 		for(int i=0; i<len; i++) {
-			cs.push(s.charAt(i));
-		}
+			char c = s.charAt(i);
 
-		int counter = 0;
-		for(int i=0; i<len; i++) {
-			char c = cs.pop();
-			if (c == ')') {
-				counter++;
-			} else if (c == '(') {
-				counter--;
+			if (c == '(') {
+				cs.push(c);
+			} else if (c == ')') {
+				try {
+					cs.pop();
+				} catch(EmptyStackException e) {
+					return false;
+				}
 			}
+		}  // end for loop
 
-			if (counter < 0) {
-				return false;
-			}
-		}
+		return cs.empty();
 
-		return counter==0;
-	}
+	}  // end parenCheck()
 
-
-	public static void main(String[] args) {
-
-
-	}  // end main()
-
-}
+}  // end class

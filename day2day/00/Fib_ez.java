@@ -1,6 +1,6 @@
 import java.util.*;
 
-// Implements a tail recusive version of calculating fibonacci seq.
+// Implements a tail recusive version that spawns variables in the stack
 public class Fib {
 
 	/*

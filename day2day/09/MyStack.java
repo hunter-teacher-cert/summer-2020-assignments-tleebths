@@ -1,41 +1,38 @@
-import java.io.*;
-import java.util.*;
+Stack<Character> cStack;  // wordStack
+Stack<String> sStack;  // sentenceStack
 
+// Constructor(s)
+public Words() {
+	cStack = new Stack<Character>();
+	sStack = new Stack<String>();
+}
 
-public class MyStack{
+// @param type 0 instantiates a Char stack for a word,
+// 1 a String stack for a sentence
+public Words(int type) {
+	if (type==0)
+		cStack = new Stack<Character>();
+	else
+		sStack = new Stack<String>();
+}
 
-  private ArrayList<String> data;
+public void push(Character c) {
+	cStack.push(c);
+}
 
-  public MyStack(){
-    data = new ArrayList<String>();
-  }
-    
-  public void push(String value){
-      data.add(0, value );
-  }
+public char pop() {
+	return cStack.pop();
+}
 
-  public String pop(){
-    // add code to remove and return the
-    // item on the top of the stack
-      String v = data.get(0);
-      data.remove(0);
-    return v;
-  }
+public char peek() {
+	return cStack.peek();
+}
 
-  public String top(){
-    // add code to return but not remove the
-    // item on the top of the stack
-    return data.get(0);
-  }
+public boolean empty() {
+	return cStack.empty();
+}
 
-  public boolean isEmpty(){
-    // return true if the stack has no data, false otherwise
-    return data.isEmpty();
-  }
-
-  public int size(){
-    // add code to return the number of items currently on the stack
-    return data.size();
-  }
-
+// Empties the stack
+public void emptyStack() {
+	cStack = new Stack<Character>();
 }

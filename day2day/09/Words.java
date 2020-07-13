@@ -20,6 +20,16 @@ public class Words {
 		return rev;
 	}
 
+	public static String readNextWord(String s, int index) {
+		String word = "";
+		char c;
+
+		while (index < s.length()) {
+			char c = s.charAt(index);
+			if (c)
+		}
+	}
+
 	// Returns s in reverse order
 	public static String reverse(String s) {
 		Stack<Character> cs = new Stack<Character>();

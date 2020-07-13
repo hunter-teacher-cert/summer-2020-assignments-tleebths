@@ -4,31 +4,81 @@ import java.io.*;
 public class Words {
 
 	// Returns s in reverse order by word
+	// Assume s is trimmed of spaces, and only one space b/t words
 	public static String revByWord(String s) {
-		Stack<Character> cs = new Stack<Character>();
-		int i;
+		if (s==null)
+			return null;
 
-		for(i=0; i<s.length(); i++) {
-			cs.push(s.charAt(i));
-		}
+		// Cut sentence into array of Strings
+		// push array into stack
+		Stack<String> ws = str2stk(s);
+		// System.out.println(ws);
 
-		String rev = "";
-		for(i=0; i<s.length(); i++) {
-			rev += cs.pop();
+		String rev = ws.pop();
+		while (!ws.empty()) {
+			rev += " " + ws.pop();
 		}
 
 		return rev;
-	}
+	}  // end revByWord()
 
-	public static String readNextWord(String s, int index) {
+	// Returns a stack of words as Strings, given a sentence s
+	// assumes s is not null
+	private static Stack<String> str2stk(String s) {
+		Stack<String> ws = new Stack<String>();  // result
 		String word = "";
 		char c;
 
-		while (index < s.length()) {
-			char c = s.charAt(index);
-			if (c)
+		// Process each letter of String into a word.
+		// At each space, push word onto stack. Reset word.
+		for (int index=0; index < s.length(); index++) {
+			c = s.charAt(index);
+
+			if (c == ' ') {  // end of a word
+				ws.push(word);
+				word = "";
+			} else {
+				word += c;
+				// System.out.println(word);
+			}
 		}
-	}
+
+		ws.push(word);  // last word doesn't end with a space
+		return ws;
+	}  // end str2stk()
+
+	public static boolean isPalindromeByWord(String s) {
+		// Convert String to Stack of words
+		// Push first half of words into stack.
+		// At halfway point, start popping.
+		// Check if each char is the same as the rest of String
+		Stack<String> ss1 = str2stk(s);
+		System.out.println(ss1);
+
+		int len = ss1.size();
+		int half = len/2;  // will ignore middle if len is odd
+
+		int i = 0;
+		Stack<String> ss2 = new Stack<String>();
+
+		while (i < half) {
+			ss2.push(ss1.pop());
+			i++;
+		}
+
+		// if len==4, half==2, 2nd half starts at 2
+		// if len==7, half==3, 2nd half starts at 4
+		if (len%2 == 1)
+			ss1.pop();
+
+		while (!ss1.empty()) {
+			if (!ss1.pop().equals( ss2.pop() ))
+				return false;
+		}
+
+		return true;
+	}  // end isPalindromeByWord()
+
 
 	// Returns s in reverse order
 	public static String reverse(String s) {

@@ -1,8 +1,4 @@
-import java.io.*;
-import java.util.*;
-
-
-public class MyStack {
+/public class MyStack {
     private Node head;
     private int length;  // must update if push/pop
 

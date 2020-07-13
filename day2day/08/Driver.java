@@ -9,7 +9,7 @@ public class Driver {
         System.out.println("Printing empty stack:\n\n" + s);
         System.out.printf("isEmpty() should be true: %b. Top=\n", s, s.isEmpty(), s.top());
 
-        // s.push("Dominion of Canada");
+        s.push("Dominion of Canada");
         s.push("Z");
         s.push("tofr");
         s.push("dDub");

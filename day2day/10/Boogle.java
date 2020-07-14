@@ -34,10 +34,16 @@ public class Boogle
     }//end linSearch()
 
     // Returns index of target, or -1 if not found
-    // Assumes al is sorted
+    // Assumes al is sorted. Uses iterative algo
     public static int binSearch( ArrayList al, int target )
     {
-        // <INSERT YOUR MACHINERY HERE>...
+        // Start searching from beginning to end of list
+        // Find middle index. When low > high, item not found.
+        // Search by comparing middle element to target.
+        // If too small, look in upper half of search range.
+        // If too big, look in lower half.
+        // Readjust search parameters accordingly.
+
         int low = 0, high = al.size()-1;
         int mid = (low+high)/2;
         int ele;  // value at index mid
@@ -60,16 +66,17 @@ public class Boogle
     }  //end binSearch()
 
     // Returns index of target, or -1 if not found
-    // Searches only within indices low and high, inclusive
+    // Uses recursive algo by calling helper method on whole range of list
     public static int binSearchRec( ArrayList al, int target )
     {
         return binSearchRecHelper(al, target, 0, al.size()-1);
-    }  //end binSearchRe()
+    }
 
     // Returns index of target, or -1 if not found
     // Searches only within indices low and high, inclusive
     public static int binSearchRecHelper( ArrayList al, int target, int low, int high )
     {
+        // System.out.print("\n["+low+", "+high+"]");
         if (low > high)
             return -1;
 
@@ -80,9 +87,9 @@ public class Boogle
             return binSearchRecHelper(al, target, mid+1, high);
         } else if (ele > target) {
             return binSearchRecHelper(al, target, low, mid-1);
+        } else {
+            return mid;
         }
-
-        return mid;
     }  //end binSearchRecHelper()
 
 
@@ -181,42 +188,42 @@ public class Boogle
         System.out.println(sal00);
         System.out.println(linSearch(sal00,3));
         System.out.println(binSearch(sal00,3));
-        System.out.println(binSearchRec(sal000,3));
+        System.out.println(binSearchRec(sal00,3));
 
         System.out.println("\n"+"sal01"+":");
         ArrayList sal01 = prestoSortedArrayListo(5,0,100);
         System.out.println(sal01);
         System.out.println(linSearch(sal01,3));
         System.out.println(binSearch(sal01,3));
-        System.out.println(binSearchRec(sal000,3));
+        System.out.println(binSearchRec(sal01,3));
 
         System.out.println("\n"+"sal02"+":");
         ArrayList sal02 = prestoSortedArrayListo(5,3,100);
         System.out.println(sal02);
         System.out.println(linSearch(sal02,3));
         System.out.println(binSearch(sal02,3));
-        System.out.println(binSearchRec(sal000,3));
+        System.out.println(binSearchRec(sal02,3));
 
         System.out.println("\n"+"sal03"+":");
         ArrayList sal03 = prestoSortedArrayListo(5,0,100);
         System.out.println(sal03);
         System.out.println(linSearch(sal03,3));
         System.out.println(binSearch(sal03,3));
-        System.out.println(binSearchRec(sal000,3));
+        System.out.println(binSearchRec(sal03,3));
 
         System.out.println("\n"+"sal04"+":");
         ArrayList sal04 = prestoSortedArrayListo(20,0,3);
         System.out.println(sal04);
         System.out.println(linSearch(sal04,3));
         System.out.println(binSearch(sal04,3));
-        System.out.println(binSearchRec(sal000,3));
+        System.out.println(binSearchRec(sal04,3));
 
         System.out.println("\n"+"sal05"+":");
         ArrayList sal05 = prestoSortedArrayListo(20,1,5);
         System.out.println(sal05);
         System.out.println(linSearch(sal05,3));
         System.out.println(binSearch(sal05,3));
-        System.out.println(binSearchRec(sal000,3));
+        System.out.println(binSearchRec(sal05,3));
 
         /*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~
         ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~*/

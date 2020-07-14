@@ -33,19 +33,38 @@ public class Boogle
     return -1;
   }//end linSearch()
 
+	// Returns index of target, or -1 if not found
+	// Assumes al is sorted
+	public static int binSearch( ArrayList al, int target )
+	{
+		// <INSERT YOUR MACHINERY HERE>...
 
+		return -1; //placeholder to get past compiler
+	}  //end binSearch()
 
+	// Returns index of target, or -1 if not found
+	// Searches only within indices low and high, inclusive
+	public static int binSearch( ArrayList al, int target, int low, int high )
+	{
+		if (low > high)
+			return -1;
 
+		
+	} //end binSearch()
 
+	// Returns index of target, or -1 if not found
+	// Searches only within indices low and high, inclusive
+	public static int binSearchRec( ArrayList al, int target, int low, int high )
+	{
 
+	}  //end binSearchRe()
 
+	// Returns index of target, or -1 if not found
+	// Searches only within indices low and high, inclusive
+	public static int binSearchRecHelper( ArrayList al, int target, int low, int high )
+	{
 
-  //return index of target, or -1 if not found
-  public static int binSearch( ArrayList al, int target )
-  {
-    // <INSERT YOUR MACHINERY HERE>...
-    return -1; //placeholder to get past compiler
-  }//end binSearch()
+	}  //end binSearchRecHelper()
 
 
 

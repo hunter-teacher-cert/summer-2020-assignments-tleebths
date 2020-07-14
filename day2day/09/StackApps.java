@@ -32,11 +32,30 @@ public class StackApps {
 		return ws;
 	}  // end str2stk()
 
+	// Returns a String from a given Stack of String
+	// separated by the delimiter sep (usu. "" or " ").
+	private static String stk2str(Stack<String> ls, String sep) {
+		String s;
+
+		if (ls.empty()) {
+			s = "";
+		} else {
+			s = ls.pop();
+		}
+
+		while (!ls.empty()) {
+			s += sep + ls.pop();
+		}
+
+		return s;
+	}  // end stk2str()
+
 	public static boolean isPalindromeByWord(String s) {
 		// Convert String to Stack of words, s1
 		// Reverse s by word, then convert to Stack of words, s2
 		// Check if they're the same
-		return stk2str(str2words(s), " ").equals( str2words(revByWord(s)) );
+		return stk2str(str2words(s), " ").equals(
+				stk2str(str2words(revByWord(s)), " ") );
 	}  // end isPalindromeByWord()
 
 
@@ -106,24 +125,6 @@ public class StackApps {
 
 		return bs.empty();
 	}  // end parenCheck()
-
-	// Returns a String from a given Stack of String
-	// separated by the delimiter sep (usu. "" or " ").
-	private static String stk2str(Stack<String> ls, String sep) {
-		String s;
-
-		if (ls.empty()) {
-			s = "";
-		} else {
-			s = ls.pop();
-		}
-
-		while (!ls.empty()) {
-			s += sep + ls.pop();
-		}
-
-		return s;
-	}  // end stk2str()
 
 	// Returns a stack of letters as Strings, given a sentence s
 	// assumes s is not null

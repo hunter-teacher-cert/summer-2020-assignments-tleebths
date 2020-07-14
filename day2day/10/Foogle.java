@@ -23,19 +23,22 @@ import java.util.*;
 public class Foogle
 {
 
-  //  <YOUR DESCRIPTIVE COMMENT HERE>
-  public static int foo( ArrayList al, int target )
+  // Returns the index of the first occurrence of
+  // a given number if the given array, or
+  // -1 if not found
+  public static int indexOf( ArrayList al, int target )
   {
     for( int pos=0; pos<al.size(); pos++) {
       if (al.get(pos).equals(target))
         return pos;
     }
     return -1;
-  }//end foo()
+  }//end indexOf()
 
 
-  //  <YOUR DESCRIPTIVE COMMENT HERE>
-  public static ArrayList gizmo(int numItems, int lo, int hi)
+  // Returns an ArrayList of size numItems, where each element
+  // is a random integer from lo, up to but not incl. hi
+  public static ArrayList randomList(int numItems, int lo, int hi)
   {
     ArrayList retArr = new ArrayList();
 
@@ -47,22 +50,27 @@ public class Foogle
       retArr.add( lo + (int)(hi * Math.random()) ); // [?,?)
     }
     return retArr;
-  }//end gizmo()
+  }//end randomList()
 
 
-  //  <YOUR DESCRIPTIVE COMMENT HERE>
-  public static ArrayList wooHa(int numItems, int lo, int hi)
+  // Returns an ArrayList of size numItems, where the first element
+  // is a random integer from lo, up to but not incl. hi, and
+  // every subsequent element is a different amount more than the
+  // previous. The difference is calculated by the same random.
+  // An empty list is returned if numItems is not positive.
+  public static ArrayList randomSeq(int numItems, int lo, int hi)
   {
     ArrayList retArr = new ArrayList();
 
-    // <YOUR DESCRIPTIVE COMMENT HERE>
+    // empty list returned if numItems not positive
     if ( numItems<1 )
       return retArr;
 
-    // <YOUR DESCRIPTIVE COMMENT HERE>
+    // Start with random integer from lo up to but not incl. hi
     retArr.add( (int)(lo * Math.random()) );
 
-    // <YOUR DESCRIPTIVE COMMENT HERE>
+    // Each subsequent element is a random amount over the previous
+	// kind of like 2x, 3x, 4x. But it's not the same increase
     for(int i=1; i<numItems; i++) {
       //System.out.println(i);  //diagnostic under-the-hood view
       //retArr.add( Math.random() ); // [0,1)
@@ -75,77 +83,77 @@ public class Foogle
     }
 
     return retArr;
-  }//end wooHa()
+  }  //end randomSeq()
 
 
   public static void main( String[] args )
   {
-    // test battery for gizmo()
-    /*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~
+    // test battery for randomList()
     System.out.println("\n"+"al000"+":");
-    ArrayList al000 = gizmo(0,0,0);
+    ArrayList al000 = randomList(0,0,0);
     System.out.println(al000);
-    System.out.println(foo(al000,3));
+    System.out.println(indexOf(al000,3));
 
     System.out.println("\n"+"al01"+":");
-    ArrayList al01 = gizmo(5,0,100);
+    ArrayList al01 = randomList(5,0,100);
     System.out.println(al01);
-    System.out.println(foo(al01,3));
+    System.out.println(indexOf(al01,3));
 
     System.out.println("\n"+"al02"+":");
-    ArrayList al02 = gizmo(5,3,10);
+    ArrayList al02 = randomList(5,3,10);
     System.out.println(al02);
-    System.out.println(foo(al02,3));
+    System.out.println(indexOf(al02,3));
 
     System.out.println("\n"+"al05"+":");
-    ArrayList al05 = gizmo(20,1,5);
+    ArrayList al05 = randomList(20,1,5);
     System.out.println(al05);
-    System.out.println(foo(al05,3));
+    System.out.println(indexOf(al05,3));
+	/*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~
       ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~*/
 
 
-    // test battery for wooHa()
-    /*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~
+    // test battery for randomSeq()
     System.out.println("\n"+"sal000"+":");
-    ArrayList sal000 = wooHa(0,0,0);
+    ArrayList sal000 = randomSeq(0,0,0);
     System.out.println(sal000);
-    System.out.println(foo(sal000,3));
+    System.out.println(indexOf(sal000,3));
 
     System.out.println("\n"+"sal00"+":");
-    ArrayList sal00 = wooHa(5,0,100);
+    ArrayList sal00 = randomSeq(5,0,100);
     System.out.println(sal00);
-    System.out.println(foo(sal00,3));
+    System.out.println(indexOf(sal00,3));
 
     System.out.println("\n"+"sal01"+":");
-    ArrayList sal01 = wooHa(5,0,100);
+    ArrayList sal01 = randomSeq(5,0,100);
     System.out.println(sal01);
-    System.out.println(foo(sal01,3));
+    System.out.println(indexOf(sal01,3));
 
     System.out.println("\n"+"sal02"+":");
-    ArrayList sal02 = wooHa(5,3,100);
+    ArrayList sal02 = randomSeq(5,3,100);
     System.out.println(sal02);
-    System.out.println(foo(sal02,3));
+    System.out.println(indexOf(sal02,3));
 
     System.out.println("\n"+"sal03"+":");
-    ArrayList sal03 = wooHa(5,0,100);
+    ArrayList sal03 = randomSeq(5,0,100);
     System.out.println(sal03);
-    System.out.println(foo(sal03,3));
+    System.out.println(indexOf(sal03,3));
 
     System.out.println("\n"+"sal04"+":");
-    ArrayList sal04 = wooHa(20,0,3);
+    ArrayList sal04 = randomSeq(20,0,3);
     System.out.println(sal04);
-    System.out.println(foo(sal04,3));
+    System.out.println(indexOf(sal04,3));
 
     System.out.println("\n"+"sal05"+":");
-    ArrayList sal05 = wooHa(20,1,5);
+    ArrayList sal05 = randomSeq(20,1,5);
     System.out.println(sal05);
-    System.out.println(foo(sal05,3));
+    System.out.println(indexOf(sal05,3));
+	/*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~
       ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~*/
 
-    /*
     System.out.println("\n"+"al"+":");
-    ArrayList al = gizmo(,0,100);
+    ArrayList al = randomList(,0,100);
     System.out.println(al);
+	/*
 
     */
   }//end main

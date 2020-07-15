@@ -179,7 +179,7 @@ public class Boogle
         return minIndex;
     }
 
-    /* Swaps values at the two given indices
+    /* Swaps elements at the two given indices
      */
     private static void swap(ArrayList<Integer> al, int i1, int i2) {
         Integer temp = al.get(i1);
@@ -199,10 +199,11 @@ public class Boogle
 
     /* Recursively performs selection sort on given range of given list
      * Strategy: Find index of minValue to the end of the list
-     * Swap values at current and minValue indices
+     * Swap values at current and minValue indices if different
      * Sort the rest of the list
      */
-     public static void selectionSortHelper(ArrayList al, int lo, int hi) {
+    public static void selectionSortHelper(ArrayList al, int lo, int hi) {
+        // required even if this method's turned private
         if (al==null || al.size() < 2 || lo<0 || lo>hi || hi>=al.size())
             return;
 
@@ -218,8 +219,9 @@ public class Boogle
      }  // end selectionSortHelper()
 
      /* Recursively performs selection sort on given range of given list
-      * Strategy:
-      *
+      * Strategy: Iterate through all indices from 0 to hi-1
+      * Find index of minValue to the end of the list
+      * Swap values at current and minValue indices
       */
       public static void selectionSortIter(ArrayList al) {
          if (al==null || al.size() < 2)
@@ -227,14 +229,11 @@ public class Boogle
 
         int hi = al.size() - 1;
 
-         // Iterate through all indices from 0 to hi-1
-         // Find index of minValue to the end of the list
-         // Swap values at current and minValue indices
          for(int i=0; i<=hi; i++) {
-             int j = findSmallest(al, i, hi);  // index of min.
+             int min = findSmallest(al, i, hi);
 
-             if (i != j)
-                 swap(al, i, j);
+             if (i != min)
+                 swap(al, i, min);
          }  // end for loop
 
       }  // end selectionSortHelper()
@@ -248,8 +247,8 @@ public class Boogle
         int smallIndex;
         System.out.println("Testing findSmallest");
         ArrayList<Integer>  slist = prestoArrayListo(20,0,200);
-        int len = slist.size() - 1;
-        smallIndex = findSmallest(slist, 0, len);
+        int len = slist.size();
+        smallIndex = findSmallest(slist, 0, len-1);
         System.out.println(slist);
         System.out.printf("Smallest is at slist[%d] and is %d\n",smallIndex,slist.get(smallIndex));
         // swap(slist, 2, 3);

@@ -78,7 +78,7 @@ public class Boogle
     {
         // System.out.print("\n["+low+", "+high+"]");
         if (low > high)
-            return -1;
+        return -1;
 
         int mid = (low+high) / 2;
         int ele = (int)al.get(mid);
@@ -154,8 +154,9 @@ public class Boogle
     // find and return the index of the smallest value in the
     // ArrayList al from index lo to index hi inclusive
     public static int findSmallest(ArrayList<Integer> al, int lo, int hi) {
+        // inefficient to check so much -- solutions?
         if (al==null || lo<0 || lo>hi || hi>=al.size())
-            return -1;
+        return -1;
 
         // assume the first item is the smallest - call it our smallest so far
         int minIndex = lo;
@@ -168,7 +169,7 @@ public class Boogle
 
             //   if the current item is smaller than the smalleest so far,
             //      then the current item becomes the new smallest so far
-            if (item < minValue) {
+            if (item.compareTo(minValue) < 0) {
                 minValue = item;
                 minIndex = i;
             }
@@ -179,8 +180,38 @@ public class Boogle
         return minIndex;
     }
 
+    // Returns [x,y] such that x is the index of the min of al from lo to hi
+    // and y is the index of the local max
+    private static int[] findLocalMinMax(ArrayList<Integer> al, int lo, int hi) {
+
+        // assume the first item is the smallest - call it our smallest so far
+        int minIndex = lo, maxIndex = lo;
+        Integer minValue = al.get(lo), maxValue = minValue;
+
+        Integer item;
+
+        // loop over all the items
+        for (int i = lo+1; i <= hi; i++) {
+            item = al.get(i);
+
+            //   if the current item is smaller than the smalleest so far,
+            //      then the current item becomes the new smallest so far
+            if (item.compareTo(minValue) < 0) {
+                minValue = item;
+                minIndex = i;
+            } else if (item.compareTo(maxValue) > 0) {
+                maxValue = item;
+                maxIndex = i;
+            }
+
+        }  // end for loop
+
+        // change this to return the correct answer
+        return new int[]{minIndex, maxIndex};
+    }
+
     /* Swaps elements at the two given indices
-     */
+    */
     private static void swap(ArrayList<Integer> al, int i1, int i2) {
         Integer temp = al.get(i1);
         al.set(i1, al.get(i2));
@@ -188,24 +219,24 @@ public class Boogle
     }
 
     /* Returns the ArrayList in sorted form using selection sort
-     * Strategy: Calls helper function on whole list
-     */
+    * Strategy: Calls helper function on whole list
+    */
     public static void selectionSort(ArrayList al) {
         if (al==null)
-            return;
+        return;
 
         selectionSortHelper(al, 0, al.size()-1);
     }  // end selectionSort()
 
     /* Recursively performs selection sort on given range of given list
-     * Strategy: Find index of minValue to the end of the list
-     * Swap values at current and minValue indices if different
-     * Sort the rest of the list
-     */
+    * Strategy: Find index of minValue to the end of the list
+    * Swap values at current and minValue indices if different
+    * Sort the rest of the list
+    */
     public static void selectionSortHelper(ArrayList al, int lo, int hi) {
         // required even if this method's turned private
         if (al==null || al.size() < 2 || lo<0 || lo>hi || hi>=al.size())
-            return;
+        return;
 
         int i = lo;  // index of "first" element
         int j = findSmallest(al, lo, hi);  // index of min.
@@ -216,27 +247,55 @@ public class Boogle
 
         selectionSortHelper(al, lo+1, hi);
 
-     }  // end selectionSortHelper()
+    }  // end selectionSortHelper()
 
-     /* Recursively performs selection sort on given range of given list
-      * Strategy: Iterate through all indices from 0 to hi-1
-      * Find index of minValue to the end of the list
-      * Swap values at current and minValue indices
-      */
-      public static void selectionSortIter(ArrayList al) {
-         if (al==null || al.size() < 2)
-             return;
+    /* Recursively performs selection sort on given range of given list
+    * Strategy: Iterate through all indices from 0 to hi-1
+    * Find index of minValue to the end of the list
+    * Swap values at current and minValue indices
+    */
+    public static void selectionSortIter(ArrayList al) {
+        if (al==null || al.size() < 2)
+        return;
 
         int hi = al.size() - 1;
 
-         for(int i=0; i<=hi; i++) {
-             int min = findSmallest(al, i, hi);
+        for(int i=0; i<=hi; i++) {
+            int min = findSmallest(al, i, hi);
 
-             if (i != min)
-                 swap(al, i, min);
-         }  // end for loop
+            if (i != min)
+            swap(al, i, min);
+        }  // end for loop
 
-      }  // end selectionSortHelper()
+    }  // end selectionSortHelper()
+
+    /* Returns al in sorted order by selection sorting in both directions
+     * On each pass, find index of both min & max in unsorted range
+     * swap them to left & right ends, respectively
+     */
+    public static void dblSelectionSort(ArrayList al) {
+        if (al==null || al.size() < 2)
+            return;
+
+        int hi = al.size() - 1;
+
+        for(int lo=0; lo<=hi; lo++, hi--) {
+            int[] minMax = findLocalMinMax(al, lo, hi);
+            // System.out.println(al + " " + minMax[0] + " " + minMax[1]);
+
+            if (lo != minMax[0])
+                swap(al, lo, minMax[0]);  // what if max was at lo?
+
+            if (hi != minMax[1]) {
+                if (lo != minMax[1]) {
+                    swap(al, hi, minMax[1]);
+                } else {
+                    swap(al, hi, minMax[0]);  // would've been moved
+                }
+            }  // end nested if
+        }  // end for loop
+
+    }  // end selectionSortHelper()
 
     //##################################################
     //##################################################
@@ -248,23 +307,28 @@ public class Boogle
         System.out.println("Testing findSmallest");
         ArrayList<Integer>  slist = prestoArrayListo(20,0,200);
         int len = slist.size();
-        smallIndex = findSmallest(slist, 0, len-1);
+        // smallIndex = findSmallest(slist, 0, len-1);
+        // System.out.printf("Smallest is at slist[%d] and is %d\n",smallIndex,slist.get(smallIndex));
         System.out.println(slist);
-        System.out.printf("Smallest is at slist[%d] and is %d\n",smallIndex,slist.get(smallIndex));
         // swap(slist, 2, 3);
         // System.out.println(slist);
+        // System.out.println(Arrays.toString(findLocalMinMax(slist, 4, 7)));
+
         selectionSort(slist);
         System.out.println(slist);
         slist = prestoArrayListo(20,0,200);
         selectionSortIter(slist);
         System.out.println(slist);
+        slist = prestoArrayListo(20,0,200);
+        dblSelectionSort(slist);
+        System.out.println(slist);
 
         // smallIndex = findSmallest(slist, len, len);
         // System.out.printf("Smallest is at slist[%d] and is %d\n",smallIndex,slist.get(smallIndex));
-
         /*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~
-
         ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~*/
+
+
 
     }//end main
 

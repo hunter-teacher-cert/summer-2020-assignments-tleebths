@@ -10,9 +10,6 @@ import java.util.*;
 public class MSRPSort
 {
 
-    //##################################################
-    //##################################################
-
     // run with command line argument specifying length of array list
     public static void main( String[] args )
     {
@@ -20,17 +17,48 @@ public class MSRPSort
         if (args.length>0)
             len = Integer.parseInt(args[0]);
 
-        ArrayList<Integer> randos = prestoArrayListo(len, 0, 100);
+        ArrayList<Integer> randos = prestoArrayListo(len, 0, Integer.MAX_VALUE);
+        ArrayList<Integer> sorted;
 
-        System.out.println("unsorted : " + randos);
+        /********************
+        ArrayList<Integer> first = slice(randos, 0, len),
+                           second = slice(randos, 0, 1),
+                           third = slice(randos, len-5, len);
 
-        // long start = System.currentTimeMillis();
-        ArrayList<Integer> sorted = quickSort(randos);
-        System.out.println("merge    : " + sorted);
+        ArrayList<Integer>[] als =
+            (ArrayList<Integer>[])new ArrayList[]{first, second, third};
+        ArrayList<Integer> joined = concat(als);
 
-        // long start = System.currentTimeMillis();
+        System.out.printf("sliced: whole %s, first %s, last 5 %s\n",
+                             first, second, third);
+        System.out.printf("concat: %s\n", joined);
+        System.out.printf("pivot of whole: %d, of first: %d, of last: %d\n",
+                findPivot(first,0,len), findPivot(second,0,1), findPivot(third,0,5));
+        first.clear();
+        second.clear();
+        third.clear();
+        int pivot1 = findPivot(randos,0,len);
+        separate(randos, pivot1, first, second, third);
+        System.out.printf("sep on %d: %s, %s, %s\n", pivot1, first, second, third);
+        /*******************/
+
+        // System.out.println("unsorted : " + randos);
+
+
+         // long start = System.currentTimeMillis();
+         System.out.println("start quicksort");
+         sorted = quickSort(randos);
+         System.out.println("end quicksort");
+         // System.out.println("quick    : " + sorted);
+
+         System.out.println("start mergesort");
         sorted = mergeSort(randos);
-        System.out.println("merge    : " + sorted);
+        System.out.println("end mergesort");
+        // System.out.println("merge    : " + sorted);
+
+        /********************
+
+        /*******************/
 
         // randos = prestoArrayListo(10, 0, 100);
         // selectionSort(randos);
@@ -44,36 +72,112 @@ public class MSRPSort
 
     // aka. pivot sort
     public static ArrayList<Integer> quickSort(ArrayList<Integer> al) {
-        if (al==null || al.size()==0) {
-            return al;
+        if (al==null) {
+            return null;
         }
 
         return quickSort(al, 0, al.size());
     }
 
     // Helper method, sorts from index lo up to but not incl. hi
-    // Assuming >= 1 item in list
+    // Pre-condition: al != null
     private static ArrayList<Integer> quickSort(ArrayList<Integer> al, int lo, int hi) {
         ArrayList<Integer> sorted = new ArrayList<Integer>();
+        //System.out.printf("qsH(%d, %d): %s ", lo, hi, al);
 
         // Base case: if 1 item or less in list, it's sorted
-        if (lo == hi) {
+        if (lo == hi) {  //System.out.println("length 0");
             return sorted;
-        } else if (lo == hi - 1) {
+        } else if (lo == hi - 1) {  //System.out.println("length 1");
             sorted.add(al.get(lo));
+            return sorted;
         }
+        //System.out.println("Checked base cases: " + al);
 
         /* Recursive case: Picks a pivot, then creates 3 new lists
-         * List 1: all elements smaller than pivot
-         * List 2: all elements equal to pivot
-         * List 3: all elements greater than pivot
          * Sort all 3 lists, then concatenates them
          */
+        int pivot = findPivot(al, lo, hi);
+        //System.out.println("Found pivot: " + pivot);
 
+        ArrayList<Integer> less = new ArrayList<Integer>();
+        ArrayList<Integer> equal = new ArrayList<Integer>();
+        ArrayList<Integer> greater = new ArrayList<Integer>();
 
-        return null;
+        // iterate through list and classify elements into the 3 lists
+        separate(al, pivot, less, equal, greater);
+
+        // quickSort each list
+        less = quickSort(less);
+        // sorting equal -> infinite recursion
+        greater = quickSort(greater);
+
+        ArrayList<Integer>[] als =
+            (ArrayList<Integer>[])new ArrayList[]{less, equal, greater};
+        sorted = concat(als);
+
+        return sorted;
     }  // end quickSort helper
 
+    /* Picks a pivot for quickSort, given an ArrayList of length >= 1
+     * from index to up to but not incl. hi
+     */
+    private static int findPivot(ArrayList<Integer> al, int lo, int hi) {
+        // Initial effort: pick rightmost-element
+        return (int)al.get(hi-1);
+    }
+
+    // iterate through given ArrayList & classify elements into the 3 lists
+    private static void separate(ArrayList<Integer> al, int pivot,
+            ArrayList<Integer> less, ArrayList<Integer> equal, ArrayList<Integer> greater) {
+        for (int ele : al) {
+            if (ele < pivot) {
+                less.add(ele);
+            } else if (ele > pivot) {
+                greater.add(ele);
+            } else {
+                equal.add(ele);
+            }
+        }
+    }  // end separate()
+
+    /* Helper method returns new ArrayList by joining ArrayLists
+     * supplied in an array, in the order they're given
+     * Precondition: als is not null (though its elements may be null)
+     */
+    private static ArrayList<Integer> concat(ArrayList<Integer>[] als) {
+        ArrayList<Integer> joined = new ArrayList<Integer>();
+
+        for (ArrayList<Integer> al : als) {
+            if (al.size() == 0) {
+                continue;
+            }
+
+            for (Integer ele : al) {
+                joined.add(ele);
+            }
+        }  // end nested for loop
+
+        return joined;
+    }
+
+    /* Returns a new ArrayList with elements from an input list
+     * from index lo up to but not including index hi.
+     * Pre-condition: al is not null
+     */
+    private static ArrayList<Integer> slice(ArrayList<Integer> al, int lo, int hi) {
+        ArrayList<Integer> sliced = new ArrayList<Integer>();
+
+        if (al.size()==0) {
+            return sliced;
+        }
+
+        while (lo<hi) {
+            sliced.add( al.get(lo++) );
+        }
+
+        return sliced;
+    }
 
     //return ArrayList of random ints on range [lo,lo+hi)
     public static ArrayList<Integer> prestoArrayListo(int numItems, int lo, int hi)

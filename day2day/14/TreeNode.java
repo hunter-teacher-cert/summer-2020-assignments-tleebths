@@ -33,16 +33,16 @@ public class TreeNode {
 		return left;
 	}
 
-	public void setLeft(TreeNode n) {
-		left = n;
+	public void setLeft(TreeNode tn) {
+		left = tn;
 	}
 
 	public TreeNode getRight() {
 		return right;
 	}
 
-	public void setRight(TreeNode n) {
-		right = n;
+	public void setRight(TreeNode tn) {
+		right = tn;
 	}
 
 }

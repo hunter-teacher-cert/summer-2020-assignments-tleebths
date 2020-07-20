@@ -1,47 +1,48 @@
 // for binary search tree
 public class TreeNode {
 	// Instance variables
-	private String data;
-	private TreeNode ch1;
-	private TreeNode ch2;
+	private int data;
+	private TreeNode left;
+	private TreeNode right;
 
 	// Constructors
 	public TreeNode() {
-		this("", null, null);
+		this(0, null, null);
 	}
 
-	public TreeNode(String data) {
+	public TreeNode(int data) {
 		this(data, null, null);
 	}
 
-	public TreeNode(String data, TreeNode ch1, TreeNode ch2) {
+	public TreeNode(int data, TreeNode left, TreeNode right) {
 		this.data = data;
-		this.ch1 = ch1;
-		this.ch2 = ch2;
+		this.left = left;
+		this.right = right;
 	}
 
-	public String getData() {
+	// getters & setters
+	public int getData() {
 		return data;
 	}
 
-	public void setData(String s) {
-		data = s;
+	public void setData(int x) {
+		data = x;
 	}
 
-	public TreeNode getCh1() {
-		return ch1;
+	public TreeNode getLeft() {
+		return left;
 	}
 
-	public void setCh1(TreeNode tn) {
-		ch1 = tn;
+	public void setLeft(TreeNode n) {
+		left = n;
 	}
 
-	public TreeNode getCh2() {
-		return ch2;
+	public TreeNode getRight() {
+		return right;
 	}
 
-	public void setCh2(TreeNode tn) {
-		ch2 = tn;
+	public void setRight(TreeNode n) {
+		right = n;
 	}
 
 }

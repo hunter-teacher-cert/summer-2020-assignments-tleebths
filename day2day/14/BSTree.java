@@ -229,10 +229,11 @@ public class BSTree {
 		if (cur==null)
 			return null;
 
-		int data = cur.getData();
-		TreeNode maxNodeOfChildren = findMax(cur.getRight());
+		while (cur.getRight() != null) {
+			cur = cur.getRight();
+		}
 
-		return (maxNodeOfChildren==null ? cur : maxNodeOfChildren);
+		return cur;
 	}
 
 	/* Prints out the tree from a given node, in order of:

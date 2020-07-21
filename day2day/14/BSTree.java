@@ -127,7 +127,7 @@ public class BSTree {
 			return "";
 		}
 
-		return traverse3(tn.getData() + " " + tn.getLeft()) + " " + traverse3(tn.getRight());
+		return tn.getData() + " " + traverse3(tn.getLeft()) + " " + traverse3(tn.getRight());
 	}  // end traverse()
 
 	public String toString() {

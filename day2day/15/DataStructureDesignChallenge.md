@@ -1,4 +1,4 @@
-#Phonebook w/ Contacts
+# Phonebook w/ Contacts
 Tsee Lee, 7/21/20
 ## Considerations
 Since insertion and search must be optimized, a hash table is the only appropriate data structure.

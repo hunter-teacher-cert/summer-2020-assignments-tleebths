@@ -44,3 +44,18 @@ have to optimized, the user will just have to wait.
 This operation will be very slow. We have to traverse the whole array and
 examine each element, which could be a linked list of contacts. Hopefully,
 collisions are rare so we have constant time for linked list traversal.
+
+## Reverse lookup
+1. Without changes, reverse lookup will be extremely slow. We have to traverse
+the array like in printList, to linear search the records until the number is
+found. So the runtime will be O(S), where S is the size of the array.
+2. I don't see any alternatives besides creating a duplicate array.
+Operations like add and remove will have to be done twice to maintain
+data accuracy. However, since they have constant runtime, efficiency is not
+affected too much.
+- Some operations like printList do not have to be duplicated.
+- If enlarging the array is required, contacts will have to be moved to
+the new array in smaller batches, maybe half of the original rate.
+- If we don't need to optimize reverse lookups, it can also be implemented
+with data structures like an n-ary tree, using each of the digit in the
+phone number to go down a different branch in the tree.

@@ -174,12 +174,20 @@ public class BSTree {
 		}
 
 		/* Deleting a child with 2 children. Two options:
-		 * a) Choose largest element on left branch; or
+		 * a) Choose largest element on left branch (LELB); or
 		 * b) Choose least element on right branch
 		 * They're guaranteed to be a leaf
 		 * OR have only one branch.
 		 */
-		// Choosing option a
+		/* Choosing option a: 0) Find LELB
+		 * 1) Hold onto both children of LELB
+		 * 2) Delete LELB from the tree
+		 * 3) LELB becomes foster parent of deleted node's children
+		 * 4) Add all of LELB's original children from step 1 back to tree
+		 * (Is there a more efficient way to do #4?)
+		 * 5) Disconnect deleted node from tree & return it
+		 */
+		TreeNode max = findMax(cur);
 
 
 		return disconnect(cur);
@@ -188,10 +196,24 @@ public class BSTree {
 	/* Disconnects TreeNode cur from rest of the tree
 	 * then returns reference to the node
 	 */
-	public TreeNode disconnect(TreeNode cur) {
+	private TreeNode disconnect(TreeNode cur) {
 		cur.setLeft(null);
 		cur.setRight(null);
 		return cur;
+	}
+
+	/* Returns the TreeNode containing the maximum value of
+	 * the given subtree starting from TreeNode cur
+	 * (max can only be on right side)
+	 */
+	private TreeNode findMax(TreeNode cur) {
+		if (cur==null)
+			return null;
+
+		int data = cur.getData();
+		TreeNode maxNodeOfChildren = findMax(cur.getRight());
+
+		return (maxNodeOfChildren==null ? cur : maxNodeOfChildren);
 	}
 
 	/* Prints out the tree from a given node, in order of:

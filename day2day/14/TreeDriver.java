@@ -9,9 +9,18 @@ public class TreeDriver {
 //		t.seed();
 		seedTree(t);
 		System.out.println("[" + t.toString() + "]");
-		System.out.println("[" + t.toString2() + "]");
-		System.out.println("[" + t.toString3() + "]");
+		// System.out.println("[" + t.toString2() + "]");
+		// System.out.println("[" + t.toString3() + "]");
 
+		t.delete(20);
+		System.out.println("[" + t.toString() + "]");
+		t.delete(25);
+		System.out.println("[" + t.toString() + "]");
+		t.delete(10);
+		System.out.println("[" + t.toString() + "]");
+
+
+/* tested
 		int value;
 
 		value = t.search(10);
@@ -26,6 +35,7 @@ public class TreeDriver {
 		} catch(NullPointerException e) {
 			System.out.println("30 not in tree");
 		}
+*/
 
 	}  // end main()
 

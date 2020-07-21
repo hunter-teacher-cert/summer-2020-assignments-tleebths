@@ -19,14 +19,19 @@ public class TreeDriver {
 		t.delete(10);
 		System.out.println("[" + t.toString() + "]");
 */
+		/*
 		t.delete(5);
 		System.out.println("[" + t.toString() + "]");
-
 		t = new BSTree();
 		seedTree(t);
 		t.insert(4);
 		t.delete(5);
 		System.out.println("[" + t.toString() + "]");
+		*/
+		t.delete(10);
+		System.out.println("[" + t.toString() + "]");
+
+
 
 /* tested
 		int value;

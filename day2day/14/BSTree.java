@@ -106,6 +106,7 @@ public class BSTree {
 	public TreeNode delete(int v) {
 		TreeNode prev, cur=null;
 		TreeNode curLeft, curRight;  // child and its children
+		TreeNode max;  // needed when deleting a node w/ 2 children
 
 		if (root == null) {  // tree is empty
 			return null;
@@ -121,11 +122,18 @@ public class BSTree {
 				root = curLeft;
 			}
 
-			/* doesn't work yet - root has 2 children
-			tmp = root;  // takes over
-			root = root.getLeft();
-			graft(root.getRight(), root);
-			return;*/
+			/* See normal node w/ 2 children below for details.
+			 * 0) Find GELB (<= 1 child)
+			 * 1) Hold onto GELB (or null)
+			 * 2) Delete GELB from the tree
+			 * 3) GELB becomes foster parent of deleted node's children, child of prev.
+			 * 4) Disconnect deleted node from tree & return it
+			 */
+			max = findMax(root.getLeft());
+			delete(max.getData());
+			max.setLeft(root.getLeft());
+			max.setRight(root.getRight());
+			root = max;
 
 			return disconnect(cur);
 		}
@@ -187,7 +195,7 @@ public class BSTree {
 		 * (*Not nec. cuz GELB delete would've take care of that in #2)
 		 * 5) Disconnect deleted node from tree & return it
 		 */
-		TreeNode max = findMax(cur.getLeft());  // cannot be null
+		max = findMax(cur.getLeft());  // cannot be null
 		delete(max.getData());  // step 2
 		max.setLeft(cur.getLeft());  // step 3
 		max.setRight(cur.getRight());
@@ -197,7 +205,7 @@ public class BSTree {
 			prev.setRight(max);
 		}
 
-		return disconnect(cur);
+		return disconnect(cur);  // step 5
 	}  // end delete()
 
 	/* Disconnects TreeNode cur from rest of the tree

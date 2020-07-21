@@ -66,14 +66,15 @@ public class BSTree {
 		return prev;
 	}  // end getParent()
 
-// Not done
 	/* Adds a new node with value for data in the correct position
 	 * Does nothing if value already exists in tree
 	 * Note: new data always added as a leaf.
 	 */
 	public void insert(int v) {
+		TreeNode newNode = new TreeNode(v);
+
 		if (root == null) {  // tree is empty
-			root = new TreeNode(v);
+			root = newNode;
 			return;
 		}
 
@@ -86,18 +87,28 @@ public class BSTree {
 		int prevData = prev.getData();
 		if (v < prevData) {
 			if (prev.getLeft()==null) {
-				prev.setLeft( new TreeNode(v) );
+				prev.setLeft(newNode);
 			}  // else, v is in the child node, cur
 		} else if (v > prevData) {
 			if (prev.getRight()==null) {
-				prev.setRight( new TreeNode(v) );
+				prev.setRight(newNode);
 			}
 		}
 
 	}  // end insert()
 
+	/* Prints out the tree from a given node
+	 */
+	public String traverse(TreeNode tn) {
+		if (tn==null) {
+			return "";
+		}
+
+		return traverse(tn.getLeft()) + " " + tn.getData() + " " + traverse(tn.getRight());
+	}  // end traverse()
+
 	public String toString() {
-		String result="";
+		String result = traverse(root);
 
 		return result;
 	}

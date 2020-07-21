@@ -42,6 +42,40 @@ public class BSTree {
 		//return (getNode(key)==null ? -1 : key);
 	}
 
+	/* Adds a new node with value for data in the correct position
+	 * Does nothing if value already exists in tree
+	 * Note: new data always added as a leaf.
+	 */
+	public void delete(int v) {
+		TreeNode tmp;
+
+		if (root == null) {  // tree is empty
+			return;
+		} else if (root.getData() == v) {
+			tmp = root;  // takes over
+			root = root.getLeft();
+			graft(root.getRight(), root);
+		}
+
+		TreeNode prev = getParent(v);
+		if (prev==null) {  // root contains v
+			return;
+		}
+
+		// find which branch v belongs to, but it may already exist
+		int prevData = prev.getData();
+		if (v < prevData) {
+			if (prev.getLeft()==null) {
+				prev.setLeft(newNode);
+			}  // else, v is in the child node, cur
+		} else if (v > prevData) {
+			if (prev.getRight()==null) {
+				prev.setRight(newNode);
+			}
+		}
+
+	}  // end delete()
+
 	/* Returns the node containing the parent of where key should be,
 	 * null if key is in the root node.
 	 * Precondition: root is not null and does not contain key
@@ -100,50 +134,53 @@ public class BSTree {
 	/* Prints out the tree from a given node, in order of:
 	 * left, current, right
 	 */
-	public String traverse(TreeNode tn) {
+	public String inOrderTraverse(TreeNode tn) {
 		if (tn==null) {
 			return "";
 		}
 
-		return traverse(tn.getLeft()) + " " + tn.getData() + " " + traverse(tn.getRight());
-	}  // end traverse()
+		return inOrderTraverse(tn.getLeft()) + " " + tn.getData()
+					+ " " + inOrderTraverse(tn.getRight());
+	}  // end inOrderTraverse()
 
 	/* Prints out the tree from a given node, in order of:
 	 * left, right, current
 	 */
-	public String traverse2(TreeNode tn) {
+	public String postorderTraverse(TreeNode tn) {
 		if (tn==null) {
 			return "";
 		}
 
-		return traverse2(tn.getLeft()) + " " + traverse2(tn.getRight()) + " " + tn.getData();
-	}  // end traverse()
+		return postorderTraverse(tn.getLeft()) + " " + postorderTraverse(tn.getRight())
+									+ " " + tn.getData();
+	}  // end postorderTraverse()
 
 	/* Prints out the tree from a given node, in order of:
 	 * current, left, right
 	 */
-	public String traverse3(TreeNode tn) {
+	public String preorderTraverse(TreeNode tn) {
 		if (tn==null) {
 			return "";
 		}
 
-		return tn.getData() + " " + traverse3(tn.getLeft()) + " " + traverse3(tn.getRight());
-	}  // end traverse()
+		return tn.getData() + " " + preorderTraverse(tn.getLeft())
+				+ " " + preorderTraverse(tn.getRight());
+	}  // end prerderTraverse()
 
 	public String toString() {
-		String result = traverse(root);
+		String result = inOrderTraverse(root);
 
 		return result;
 	}
 
 	public String toString2() {
-		String result = traverse2(root);
+		String result = postorderTraverse(root);
 
 		return result;
 	}
 
 	public String toString3() {
-		String result = traverse3(root);
+		String result = preorderTraverse(root);
 
 		return result;
 	}

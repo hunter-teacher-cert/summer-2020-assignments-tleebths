@@ -118,8 +118,12 @@ public class BSTree {
 			// if either child is null, the other child becomes root
 			if (curLeft==null) {
 				root = curRight;
+
+				return disconnect(cur);
 			} else if (curRight==null) {
 				root = curLeft;
+
+				return disconnect(cur);
 			}
 
 			/* See normal node w/ 2 children below for details.
@@ -234,14 +238,14 @@ public class BSTree {
 	/* Prints out the tree from a given node, in order of:
 	 * left, current, right
 	 */
-	public String inOrderTraverse(TreeNode tn) {
+	public String inorderTraverse(TreeNode tn) {
 		if (tn==null) {
 			return "";
 		}
 
-		return inOrderTraverse(tn.getLeft()) + " " + tn.getData()
-					+ " " + inOrderTraverse(tn.getRight());
-	}  // end inOrderTraverse()
+		return inorderTraverse(tn.getLeft()) + " " + tn.getData()
+					+ " " + inorderTraverse(tn.getRight());
+	}  // end inorderTraverse()
 
 	/* Prints out the tree from a given node, in order of:
 	 * left, right, current
@@ -268,19 +272,19 @@ public class BSTree {
 	}  // end prerderTraverse()
 
 	public String toString() {
-		String result = inOrderTraverse(root);
+		String result = inorderTraverse(root);
 
 		return result;
 	}
 
 	public String toString2() {
-		String result = postorderTraverse(root);
+		String result = preorderTraverse(root);
 
 		return result;
 	}
 
 	public String toString3() {
-		String result = preorderTraverse(root);
+		String result = postorderTraverse(root);
 
 		return result;
 	}

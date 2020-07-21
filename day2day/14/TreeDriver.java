@@ -11,7 +11,7 @@ public class TreeDriver {
 		System.out.println("[" + t.toString() + "]");
 		// System.out.println("[" + t.toString2() + "]");
 		// System.out.println("[" + t.toString3() + "]");
-/*
+/* Testing basic delete
 		t.delete(20);
 		System.out.println("[" + t.toString() + "]");
 		t.delete(25);
@@ -19,7 +19,7 @@ public class TreeDriver {
 		t.delete(10);
 		System.out.println("[" + t.toString() + "]");
 */
-		/*
+		/*Testing 2 children
 		t.delete(5);
 		System.out.println("[" + t.toString() + "]");
 		t = new BSTree();
@@ -29,7 +29,15 @@ public class TreeDriver {
 		System.out.println("[" + t.toString() + "]");
 		*/
 		t.delete(10);
-		System.out.println("[" + t.toString() + "]");
+		System.out.println("[" + t.toString2() + "]");
+		t.delete(8);
+		System.out.println("[" + t.toString2() + "]");
+		t.delete(7);
+		System.out.println("[" + t.toString2() + "]");
+		t.delete(5);
+		System.out.println("[" + t.toString2() + "]");
+		t.delete(3);
+		System.out.println("[" + t.toString2() + "]");
 
 
 

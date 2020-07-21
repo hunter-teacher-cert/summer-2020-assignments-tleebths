@@ -174,21 +174,28 @@ public class BSTree {
 		}
 
 		/* Deleting a child with 2 children. Two options:
-		 * a) Choose largest element on left branch (LELB); or
+		 * a) Choose greatest element on left branch (GELB); or
 		 * b) Choose least element on right branch
 		 * They're guaranteed to be a leaf
 		 * OR have only one branch.
 		 */
-		/* Choosing option a: 0) Find LELB
-		 * 1) Hold onto both children of LELB
-		 * 2) Delete LELB from the tree
-		 * 3) LELB becomes foster parent of deleted node's children
-		 * 4) Add all of LELB's original children from step 1 back to tree
-		 * (Is there a more efficient way to do #4?)
+		/* Choosing option a: 0) Find GELB (<= 1 child)
+		 * 1) Hold onto only child of GELB (or null)
+		 * 2) Delete GELB from the tree
+		 * 3) GELB becomes foster parent of deleted node's children, child of prev.
+		 * 4*) Add all of GELB's original children from step 1 back to tree
+		 * (*Not nec. cuz GELB delete would've take care of that in #2)
 		 * 5) Disconnect deleted node from tree & return it
 		 */
-		TreeNode max = findMax(cur);
-
+		TreeNode max = findMax(cur.getLeft());  // cannot be null
+		delete(max.getData());  // step 2
+		max.setLeft(cur.getLeft());  // step 3
+		max.setRight(cur.getRight());
+		if (v < prevData) {
+			prev.setLeft(max);
+		} else if (v > prevData) {
+			prev.setRight(max);
+		}
 
 		return disconnect(cur);
 	}  // end delete()

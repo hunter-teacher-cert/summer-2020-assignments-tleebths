@@ -11,14 +11,16 @@ public class TreeDriver {
 		System.out.println("[" + t.toString() + "]");
 		// System.out.println("[" + t.toString2() + "]");
 		// System.out.println("[" + t.toString3() + "]");
-
+/*
 		t.delete(20);
 		System.out.println("[" + t.toString() + "]");
 		t.delete(25);
 		System.out.println("[" + t.toString() + "]");
 		t.delete(10);
 		System.out.println("[" + t.toString() + "]");
-
+*/
+		t.delete(5);
+		System.out.println("[" + t.toString() + "]");
 
 /* tested
 		int value;

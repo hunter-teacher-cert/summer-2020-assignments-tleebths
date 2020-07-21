@@ -12,7 +12,7 @@ public class BSTree {
 	}
 
 	/* Returns the node containing the key
-	 * null if not found
+	 * If not found, throws NullPointerException
 	 */
 	private TreeNode getNode(int key) {
 		TreeNode cur = root;
@@ -30,8 +30,6 @@ public class BSTree {
 			}
 		}  // end while
 
-		//throw new NullPointerException();  // & get rid of while
-		//return null;
 	}  // end getNode()
 
 	/* Returns key if found in tree
@@ -39,7 +37,6 @@ public class BSTree {
 	 */
 	public int search(int key) {
 		return getNode(key).getData();
-		//return (getNode(key)==null ? -1 : key);
 	}
 
 	/* Adds a new node with value for data in the correct position

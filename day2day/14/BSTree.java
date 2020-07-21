@@ -97,7 +97,8 @@ public class BSTree {
 
 	}  // end insert()
 
-	/* Prints out the tree from a given node
+	/* Prints out the tree from a given node, in order of:
+	 * left, current, right
 	 */
 	public String traverse(TreeNode tn) {
 		if (tn==null) {
@@ -107,8 +108,42 @@ public class BSTree {
 		return traverse(tn.getLeft()) + " " + tn.getData() + " " + traverse(tn.getRight());
 	}  // end traverse()
 
+	/* Prints out the tree from a given node, in order of:
+	 * left, right, current
+	 */
+	public String traverse2(TreeNode tn) {
+		if (tn==null) {
+			return "";
+		}
+
+		return traverse2(tn.getLeft()) + " " + traverse2(tn.getRight()) + " " + tn.getData();
+	}  // end traverse()
+
+	/* Prints out the tree from a given node, in order of:
+	 * current, left, right
+	 */
+	public String traverse3(TreeNode tn) {
+		if (tn==null) {
+			return "";
+		}
+
+		return traverse3(tn.getData() + " " + tn.getLeft()) + " " + traverse3(tn.getRight());
+	}  // end traverse()
+
 	public String toString() {
 		String result = traverse(root);
+
+		return result;
+	}
+
+	public String toString2() {
+		String result = traverse2(root);
+
+		return result;
+	}
+
+	public String toString3() {
+		String result = traverse3(root);
 
 		return result;
 	}

@@ -8,7 +8,9 @@ public class TreeDriver {
 
 //		t.seed();
 		seedTree(t);
-		System.out.println("[" + t + "]");
+		System.out.println("[" + t.toString() + "]");
+		System.out.println("[" + t.toString2() + "]");
+		System.out.println("[" + t.toString3() + "]");
 
 		int value;
 

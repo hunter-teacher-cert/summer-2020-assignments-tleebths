@@ -101,109 +101,94 @@ public class BSTree {
 	 * Does nothing if value does not exist in tree
 	 */
 	public TreeNode delete(int v) {
-		TreeNode prev, cur=null;
+		TreeNode prev=null, cur=root;  // piggybacking
 		TreeNode curLeft, curRight;  // child and its children
-		TreeNode max;  // needed when deleting a node w/ 2 children
+		TreeNode sub;  // needed when deleting a node w/ 2 children
 
 		if (root == null) {  // tree is empty
 			return null;
-		} else if (root.getData() == v) {
-			cur = root;
+		}
+
+		if (root.getData() == v) {  // have to del root
 			curLeft = root.getLeft();
 			curRight = root.getRight();
 
 			// if either child is null, the other child becomes root
+			// works even if both are null
 			if (curLeft==null) {
-				root = curRight;
+			   root = curRight;
 
-				return disconnect(cur);
-			} else if (curRight==null) {
-				root = curLeft;
-
-				return disconnect(cur);
+			   return disconnect(cur);
 			}
 
-			/* See normal node w/ 2 children below for details.
-			 * 0) Find GELB (<= 1 child)
-			 * 1) Hold onto GELB (or null)
-			 * 2) Delete GELB from the tree
-			 * 3) GELB becomes foster parent of deleted node's children, child of prev.
-			 * 4) Disconnect deleted node from tree & return it
-			 */
-			max = findMax(root.getLeft());
-			delete(max.getData());
-			max.setLeft(root.getLeft());
-			max.setRight(root.getRight());
-			root = max;
+			/* Left is not null, so:
+			* 1) Find Maximum node on Left Branch (<= 1 child)
+			* 2) Delete MaxLB from the tree
+			* 3) MaxLB becomes foster parent of root's children
+			* 4) Disconnect original root from tree & return it
+			*/
+			sub = findDelMaxLB(root);
+			sub.setLeft(root.getLeft());
+			sub.setRight(root.getRight());
+			root = sub;
 
 			return disconnect(cur);
-		}
+		}  // end deleting root
 
-		/* find the parent, then use it to find
-		 * which branch v belongs to, but it may already exist
-		 */
-		prev = getParent(v);
-		int prevData = prev.getData();  //System.out.print(prevData+" ");
+		int data;
 
-		if (v < prevData) {
-			cur = prev.getLeft();
+		do {  // find node to be deleted
+			data = cur.getData();
+			prev = cur;
 
-		} else if (v > prevData) {
-			cur = prev.getRight();
-		}
+			if (v < data) {
+				cur = cur.getLeft();
+			} else if (v > data) {
+				cur = cur.getRight();
+			}
 
-		if (cur==null || cur.getData() != v) {
-			return null;  // v doesn't exist in tree
-		}
+			if (cur==null) {
+				return null;  // v doesn't exist in tree
+			}
 
+		} while (cur.getData()!=v);
+
+		// System.out.printf("deleting %d, prev=%d, cur=%d\n",
+		// 					v, prev.getData(), cur.getData());
 		// At this point, cur is the node to be deleted.
 		// Get the child's left and right for future use.
 		// prev is its parent.
 		curLeft = cur.getLeft();
 		curRight = cur.getRight();
 
-		// if either is null, make the other branch the current node
+		// if left branch is empty, find out which side cur is on prev
+		// & stick the right branch there
 		// deleting a leaf == deleting a child with only one child
 		if (curLeft==null) {
-			if (v < prevData) {
+			if (cur==prev.getLeft()) {
 				prev.setLeft(curRight);
-			} else if (v > prevData) {
+			} else if (cur==prev.getRight()) {
 				prev.setRight(curRight);
-			}
-
-			return disconnect(cur);
-		} else if (curRight==null) {
-			if (v < prevData) {
-				prev.setLeft(curLeft);
-			} else if (v > prevData) {
-				prev.setRight(curLeft);
 			}
 
 			return disconnect(cur);
 		}
 
-		/* Deleting a child with 2 children. Two options:
-		 * a) Choose greatest element on left branch (GELB); or
-		 * b) Choose least element on right branch
-		 * They're guaranteed to be a leaf
-		 * OR have only one branch.
+		/* Left branch exists, so replace cur with left's MaxLB
+		 * It's guaranteed to be a leaf OR have only one branch.
+		 *
+		 * 1) Find Maximum value on Left Branch (<= 1 child)
+		 * 2) Delete MaxLB from the tree
+		 * 3) MaxLB becomes foster parent of deleted node's children, child of prev.
+		 * 4) Disconnect deleted node from tree & return it
 		 */
-		/* Choosing option a: 0) Find GELB (<= 1 child)
-		 * 1) Hold onto only child of GELB (or null)
-		 * 2) Delete GELB from the tree
-		 * 3) GELB becomes foster parent of deleted node's children, child of prev.
-		 * 4*) Add all of GELB's original children from step 1 back to tree
-		 * (*Not nec. cuz GELB delete would've take care of that in #2)
-		 * 5) Disconnect deleted node from tree & return it
-		 */
-		max = findMax(cur.getLeft());  // cannot be null
-		delete(max.getData());  // step 2
-		max.setLeft(cur.getLeft());  // step 3
-		max.setRight(cur.getRight());
-		if (v < prevData) {
-			prev.setLeft(max);
-		} else if (v > prevData) {
-			prev.setRight(max);
+		sub = findDelMaxLB(cur);  // steps 1-2
+		sub.setLeft(cur.getLeft());  // step 3
+		sub.setRight(cur.getRight());
+		if (prev.getLeft()==cur) {
+			prev.setLeft(sub);
+		} else if (prev.getRight()==cur) {
+			prev.setRight(sub);
 		}
 
 		return disconnect(cur);  // step 5
@@ -219,15 +204,25 @@ public class BSTree {
 	}
 
 	/* Returns the TreeNode containing the maximum value of
-	 * the given subtree starting from TreeNode cur
-	 * (max can only be on right side)
+	 * the left branch of the subtree from TreeNode tn; And
+	 * DELETES that node from the tree
+	 * Precondition: tn != null && tn.getLeft() != null
 	 */
-	private TreeNode findMax(TreeNode cur) {
-		if (cur==null)
-			return null;
+	private TreeNode findDelMaxLB(TreeNode tn) {
+		// left one then all the way to the right
+		TreeNode prev = tn, cur = tn.getLeft();
 
 		while (cur.getRight() != null) {
+			prev = cur;
 			cur = cur.getRight();
+		}
+
+		// ends with cur pointing to rightmost node
+		// & prev one level up, its parent
+		if (tn==prev) {
+			tn.setLeft(cur.getLeft());
+		} else {
+			prev.setRight(cur.getLeft());
 		}
 
 		return cur;

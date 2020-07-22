@@ -32,8 +32,8 @@ public class TreeDriver {
 		System.out.println("[" + t.toString2() + "]");
 		t.delete(8);
 		System.out.println("[" + t.toString2() + "]");
-		t.delete(7);
-		System.out.println("[" + t.toString2() + "]");
+		// t.delete(7);
+		// System.out.println("[" + t.toString2() + "]");
 		t.delete(5);
 		System.out.println("[" + t.toString2() + "]");
 		t.delete(3);

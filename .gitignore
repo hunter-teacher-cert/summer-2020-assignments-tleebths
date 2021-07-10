@@ -1,0 +1,24 @@
+*~
+
+#compiled class files
+*.class
+
+#pixLab image files, except mine
+*.jpg
+!bee*.jpg
+Thumbs.db
+
+# Log file
+*.log
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# VM crash logs
+hs_err_pid*
